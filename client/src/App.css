@@ -1,0 +1,314 @@
+.App {
+	width: 100%;
+	height: auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #18191a;
+	color: #e4e6eb;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.logout,
+.post,
+button {
+	cursor: pointer;
+}
+
+.post {
+	width: 600px;
+	height: 450px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	background-color: #242526;
+}
+
+.post .title {
+	flex: 15%;
+	background-color: #3a3b3c;
+	display: grid;
+	place-content: center;
+}
+
+.post .body {
+	flex: 70%;
+	display: grid;
+	place-content: center;
+	padding: 20px;
+}
+
+.post .footer {
+	flex: 15%;
+	display: flex;
+	align-items: center;
+	padding-left: 15px;
+	background-color: #3a3b3c;
+	color: white;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.footer .username {
+	flex: 50%;
+}
+.footer .buttons {
+	flex: 50%;
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 10px;
+	align-items: center;
+}
+
+.likeBttn {
+	color: white;
+	padding: 4px;
+	background-color: #1e6ff8;
+	border-radius: 50%;
+}
+
+.unlikeBttn {
+	color: transparent;
+	padding: 4px;
+	stroke: #a8abaf;
+}
+
+.buttons label {
+	margin-right: 20px;
+	margin-left: 10px;
+}
+
+/* CREATE POST PAGE CSS */
+
+.createPostPage {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100vw;
+	height: 90vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.centerRegister {
+	display: flex;
+	align-items: center;
+	height: 90vh;
+}
+
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 500px;
+	height: auto;
+	padding: 20px;
+	border-radius: 5px;
+	background-color: #242526;
+}
+
+.formContainer #inputCreatePost {
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 2px solid grey;
+	border-radius: 5px;
+	padding-left: 10px;
+	font-size: 20px;
+}
+
+.formContainer button {
+	margin-top: 15px;
+	height: 40px;
+	border: none;
+	background-color: #3a3b3c;
+	border-radius: 5px;
+	color: white;
+}
+
+.formContainer button:hover {
+	background-color: #4e4f50;
+}
+
+span {
+	color: red;
+}
+
+/* NAVBAR */
+
+.navbar {
+	width: 100%;
+	height: 70px;
+	background-color: #242526;
+	display: flex;
+	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.navbar .links {
+	flex: 50%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.navbar .loggedInContainer {
+	flex: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+a {
+	margin-left: 20px;
+	text-decoration: none;
+	color: white;
+}
+
+.navbar button {
+	width: 100px;
+	height: 40px;
+	margin-right: 10px;
+	background-color: white;
+}
+
+.navbar h1 {
+	text-align: right;
+	margin-right: 10px;
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.logout {
+	margin-left: 25px;
+	margin-right: 20px;
+}
+
+/* INDIVIDUAL POST */
+.postPage {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
+}
+
+.leftSide {
+	flex: 50%;
+	height: calc(100vh - 70px);
+	display: grid;
+	place-items: center;
+}
+
+.rightSide {
+	flex: 50%;
+	height: calc(100vh - 70px);
+	display: grid;
+	place-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.rightSide .addCommentContainer {
+	margin-top: 70px;
+}
+
+.addCommentContainer input,
+button {
+	width: 450px;
+	height: 50px;
+	border-radius: 8px;
+	border: none;
+	background-color: #3a3b3c;
+	color: white;
+}
+
+.addCommentContainer button {
+	width: 100px;
+	background-color: #3a3b3c;
+	color: white;
+}
+
+.addCommentContainer button:hover {
+	background-color: #4e4f50;
+	color: white;
+}
+
+.rightSide .listOfComments {
+	flex: 80%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.listOfComments .comment {
+	width: 70%;
+	height: auto;
+	padding: 10px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+.comment {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.delete {
+	/* margin-right: 10px; */
+}
+
+.delete:hover {
+	color: red;
+}
+
+#individual {
+	height: 500px;
+	width: 600px;
+}
+
+#individual .title,
+#individual .footer {
+	font-size: 20px;
+}
+
+#individual .body {
+	font-size: 15px;
+}
+
+/* LOGIN */
+
+.loginContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+	height: 76vh;
+}
+
+.loginContainer input,
+button {
+	width: 200px;
+	height: 50px;
+	border-radius: 8px;
+	border: none;
+	margin: 10px;
+}
+
+.loginContainer button {
+	background-color: #3a3b3c;
+	color: white;
+}
+
+.loginContainer input {
+	border: 2px solid #4e4f50;
+}
