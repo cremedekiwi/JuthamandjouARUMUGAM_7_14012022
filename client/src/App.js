@@ -8,12 +8,11 @@ import Login from './pages/Login'
 import PageNotFound from './pages/PageNotFound'
 import Profile from './pages/Profile'
 import ChangePassword from './pages/ChangePassword'
-
 import { AuthContext } from './helpers/AuthContext'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
 import LogoutIcon from '@mui/icons-material/Logout'
+import logo from './logo.png'
 
 function App() {
 	const [authState, setAuthState] = useState({
@@ -61,7 +60,9 @@ function App() {
 								</>
 							) : (
 								<>
-									<Link to="/"> Groupomania</Link>
+									<Link to="/">
+										<img src={logo} alt={'logo'} className="logo" />
+									</Link>
 									<Link to="/createpost"> Créer une publication</Link>
 								</>
 							)}

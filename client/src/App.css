@@ -190,6 +190,11 @@ a {
 	margin-right: 20px;
 }
 
+.logo {
+	width: 40px;
+	height: 40px;
+}
+
 /* INDIVIDUAL POST */
 .postPage {
 	display: flex;

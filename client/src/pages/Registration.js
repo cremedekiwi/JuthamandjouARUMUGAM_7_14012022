@@ -45,7 +45,7 @@ function Registration() {
 						placeholder="Mot de passe"
 					/>
 
-					<button type="submit"> Créer nouveau compte</button>
+					<button type="submit">Créer nouveau compte</button>
 				</Form>
 			</Formik>
 		</div>

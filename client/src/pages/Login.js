@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, ErrorMessage } from 'formik'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../helpers/AuthContext'
@@ -56,7 +56,7 @@ function Login() {
 						}}
 					/>
 
-					<button onClick={login}> Login </button>
+					<button type="submit">Login</button>
 				</Form>
 			</Formik>
 		</div>
