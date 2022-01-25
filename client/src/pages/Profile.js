@@ -1,3 +1,5 @@
+/* eslint eqeqeq: "off", curly: "error" */
+
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
@@ -18,6 +20,7 @@ function Profile() {
 		axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
 			setListOfPosts(response.data)
 		})
+		// eslint-disable-next-line
 	}, [])
 
 	return (

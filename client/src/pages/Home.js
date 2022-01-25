@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
+/* eslint eqeqeq: "off", curly: "error" */
+
+import React from 'react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
-import { AuthContext } from '../helpers/AuthContext'
 
 function Home() {
 	const [listOfPosts, setListOfPosts] = useState([])
 	const [likedPosts, setLikedPosts] = useState([])
-	const { authState } = useContext(AuthContext)
 	let history = useHistory()
 
 	useEffect(() => {
@@ -28,15 +28,18 @@ function Home() {
 					)
 				})
 		}
+		// eslint-disable-next-line
 	}, [])
 
 	const likeAPost = (postId) => {
+		// Utilise axios pour faire une requête vers notre bdd
 		axios
 			.post(
 				'http://localhost:3001/likes',
 				{ PostId: postId },
 				{ headers: { accessToken: localStorage.getItem('accessToken') } }
 			)
+			// récupère la réponse et la met dans notre state listOfPosts
 			.then((response) => {
 				setListOfPosts(
 					listOfPosts.map((post) => {
@@ -68,8 +71,10 @@ function Home() {
 
 	return (
 		<div>
+			{/* Utilise map pour afficher chaque post du state */}
 			{listOfPosts.map((value, key) => {
 				return (
+					// utiliser key={key} pour avoir un id unique, et ne pas avoir de warning
 					<div key={key} className="post">
 						<div className="title"> {value.title} </div>
 						<div

@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
-import { AuthContext } from '../helpers/AuthContext'
 
 function CreatePost() {
-	const { authState } = useContext(AuthContext)
 
 	let history = useHistory()
 	const initialValues = {
@@ -18,6 +16,7 @@ function CreatePost() {
 		if (!localStorage.getItem('accessToken')) {
 			history.push('/login')
 		}
+		// eslint-disable-next-line
 	}, [])
 	const validationSchema = Yup.object().shape({
 		title: Yup.string().required('Titre requis'),
@@ -44,14 +43,14 @@ function CreatePost() {
 				<Form className="formContainer">
 					<ErrorMessage name="title" component="span" />
 					<Field
-						autocomplete="off"
+						autoComplete="off"
 						id="inputCreatePost"
 						name="title"
 						placeholder="(Ex. Titre)"
 					/>
 					<ErrorMessage name="postText" component="span" />
 					<Field
-						autocomplete="off"
+						autoComplete="off"
 						id="inputCreatePost"
 						name="postText"
 						placeholder="(Ex. Post)"

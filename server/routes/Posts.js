@@ -1,13 +1,14 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router() // Permet de faire des routes
 const { Posts, Likes } = require('../models')
 
 const { validateToken } = require('../middlewares/AuthMiddleware')
 
+// Affiche tout les posts
 router.get('/', validateToken, async (req, res) => {
 	const listOfPosts = await Posts.findAll({
 		include: [Likes],
-		order: [['id', 'DESC']],
+		order: [['id', 'DESC']], // Affiche les posts les plus récents en premier
 	})
 	const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } })
 	res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts })
@@ -29,12 +30,13 @@ router.get('/byuserId/:id', async (req, res) => {
 	res.json(listOfPosts)
 })
 
+// Crée le post
 router.post('/', validateToken, async (req, res) => {
-	const post = req.body
+	const post = req.body // récupère les données du formulaire
 	post.username = req.user.username
 	post.UserId = req.user.id
-	await Posts.create(post)
-	res.json(post)
+	await Posts.create(post) // sequelize crée le post
+	res.json(post) // envoi une réponse json du post
 })
 
 router.put('/title', validateToken, async (req, res) => {

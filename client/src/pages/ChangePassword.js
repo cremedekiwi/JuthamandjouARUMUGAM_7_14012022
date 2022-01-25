@@ -28,22 +28,22 @@ function ChangePassword() {
 
   return (
     <div>
-      <h1>Change Your Password</h1>
+      <h1>Modifier votre mot de passe</h1>
       <input
-        type="text"
-        placeholder="Old Password..."
+        type="password"
+        placeholder="Ancien"
         onChange={(event) => {
           setOldPassword(event.target.value);
         }}
       />
       <input
-        type="text"
-        placeholder="New Password..."
+        type="password"
+        placeholder="Nouveau"
         onChange={(event) => {
           setNewPassword(event.target.value);
         }}
       />
-      <button onClick={changePassword}> Save Changes</button>
+      <button onClick={changePassword}> Modifier</button>
     </div>
   );
 }

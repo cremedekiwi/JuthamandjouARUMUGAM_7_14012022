@@ -1,5 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
+	// Crée la table Posts
 	const Posts = sequelize.define('Posts', {
+		// Crée des colonnes avec le type, et il ne doit pas être nulle
 		title: {
 			type: DataTypes.STRING,
 			allowNull: false,

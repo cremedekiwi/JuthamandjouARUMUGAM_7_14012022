@@ -1,3 +1,5 @@
+/* eslint eqeqeq: "off", curly: "error" */
+
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
@@ -21,6 +23,7 @@ function Post() {
 		axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
 			setComments(response.data)
 		})
+		// eslint-disable-next-line
 	}, [])
 
 	const addComment = () => {
