@@ -5,29 +5,35 @@ import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../helpers/AuthContext'
 
 function Login() {
+	// Valeurs initiales du formulaire
 	const initialValues = {
 		username: '',
 		password: '',
 	}
 
+
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
-	const { setAuthState } = useContext(AuthContext)
+	const { setAuthState } = useContext(AuthContext) // Récupère le setState depuis App.js avec useContext
 
 	let history = useHistory()
 
 	const login = () => {
 		const data = { username: username, password: password }
 		axios.post('http://localhost:3001/auth/login', data).then((response) => {
+			// Affiche une alerte si il y a une erreur
 			if (response.data.error) {
 				alert(response.data.error)
 			} else {
+				// Crée le token dans le localStorage
 				localStorage.setItem('accessToken', response.data.token)
+				// Change le authState, quand tu te login, ça récupère ton username, id et ton nouveau status
 				setAuthState({
 					username: response.data.username,
 					id: response.data.id,
 					status: true,
 				})
+				// Redirige vers la page des posts
 				history.push('/')
 			}
 		})
@@ -36,11 +42,13 @@ function Login() {
 		<div className="centerRegister">
 			<Formik initialValues={initialValues} onSubmit={login}>
 				<Form className="formContainer">
+					<label><h1>Se connecter</h1></label>
 					<ErrorMessage name="username" component="span" />
 					<input
 						type="text"
 						placeholder="Pseudo"
-						id="inputCreatePost"
+						className="inputCreatePost"
+						// Modifie le state avec la valeur du form
 						onChange={(event) => {
 							setUsername(event.target.value)
 						}}
@@ -50,7 +58,7 @@ function Login() {
 					<input
 						type="password"
 						placeholder="Mot de passe"
-						id="inputCreatePost"
+						className="inputCreatePost"
 						onChange={(event) => {
 							setPassword(event.target.value)
 						}}

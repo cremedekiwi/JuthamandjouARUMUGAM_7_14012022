@@ -1,7 +1,9 @@
+// Crée la table Comments  avec deux colonnes (commentaire et son username)
 module.exports = (sequelize, DataTypes) => {
   const Comments = sequelize.define("Comments", {
+    // Commentaire
     commentBody: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     username: {

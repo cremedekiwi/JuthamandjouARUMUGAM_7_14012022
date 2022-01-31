@@ -14,12 +14,14 @@ router.get('/', validateToken, async (req, res) => {
 	res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts })
 })
 
+// Affiche les posts individuellement
 router.get('/byId/:id', async (req, res) => {
-	const id = req.params.id
-	const post = await Posts.findByPk(id)
-	res.json(post)
+	const id = req.params.id // récupère l'id
+	const post = await Posts.findByPk(id) // récupère le post via la clé primaire (=id)
+	res.json(post) // envoi la réponse
 })
 
+// Affiche les posts d'un user
 router.get('/byuserId/:id', async (req, res) => {
 	const id = req.params.id
 	const listOfPosts = await Posts.findAll({
@@ -36,21 +38,24 @@ router.post('/', validateToken, async (req, res) => {
 	post.username = req.user.username
 	post.UserId = req.user.id
 	await Posts.create(post) // sequelize crée le post
-	res.json(post) // envoi une réponse json du post
+	res.json(post) // envoi la réponse
 })
 
+// Modifie le titre
 router.put('/title', validateToken, async (req, res) => {
 	const { newTitle, id } = req.body
 	await Posts.update({ title: newTitle }, { where: { id: id } })
 	res.json(newTitle)
 })
 
+// Modifie le corps du texte
 router.put('/postText', validateToken, async (req, res) => {
 	const { newText, id } = req.body
 	await Posts.update({ postText: newText }, { where: { id: id } })
 	res.json(newText)
 })
 
+// Supprime le post
 router.delete('/:postId', validateToken, async (req, res) => {
 	const postId = req.params.postId
 	await Posts.destroy({

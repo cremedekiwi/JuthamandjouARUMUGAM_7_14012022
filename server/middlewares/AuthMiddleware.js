@@ -1,15 +1,21 @@
-const { verify } = require("jsonwebtoken");
+const { verify } = require("jsonwebtoken"); // Permet de vérifier un token
+require('dotenv').config()
 
+// Fonction qui se lance avant une requête, vérfie si on continue ou non
 const validateToken = (req, res, next) => {
-  const accessToken = req.header("accessToken");
+  const accessToken = req.header("accessToken"); // Récupère accessToken depuis header
 
-  if (!accessToken) return res.json({ error: "User not logged in!" });
+  // Vérifie si accessToken existe, si quelqu'un est login
+  if (!accessToken) return res.json({ error: "L'utilisateur n'est pas connecté !" });
 
+  // Utilise verify de jsonwebtoken pour voir si le token est valide
   try {
-    const validToken = verify(accessToken, "importantsecret");
-    req.user = validToken;
+    const validToken = verify(accessToken, `${process.env.SECRET}`);
+    req.user = validToken; // Crée une variable user avec les informations de validToken (username + id)
+
+    // Si validToken est true, autorise la poursuite de la requête
     if (validToken) {
-      return next();
+      return next(); 
     }
   } catch (err) {
     return res.json({ error: err });

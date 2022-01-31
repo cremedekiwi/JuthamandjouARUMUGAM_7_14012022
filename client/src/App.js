@@ -15,23 +15,29 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import logo from './logo.png'
 
 function App() {
+	// Permet de savoir si on est connecté ou non, ce state contient username, id et le status
 	const [authState, setAuthState] = useState({
 		username: '',
 		id: 0,
 		status: false,
 	})
 
+	// Render quand on arrive sur la page
 	useEffect(() => {
+		// Récupère le token après s'être connecté
 		axios
-			.get('http://localhost:3001/auth/auth', {
+			.get('http://localhost:3001/auth/verify', {
 				headers: {
 					accessToken: localStorage.getItem('accessToken'),
 				},
 			})
 			.then((response) => {
+				// Si user pas authentifié ou avec un token non valide
 				if (response.data.error) {
 					setAuthState({ ...authState, status: false })
-				} else {
+				}
+				// Sinon user valide, et il est authentifié avec un status true
+				else {
 					setAuthState({
 						username: response.data.username,
 						id: response.data.id,
@@ -39,7 +45,7 @@ function App() {
 					})
 				}
 			})
-			// eslint-disable-next-line
+	// eslint-disable-next-line
 	}, [])
 
 	const logout = () => {
@@ -50,16 +56,25 @@ function App() {
 
 	return (
 		<div className="App">
+			{/* Permet de faire passer authState à toutes les routes */}
 			<AuthContext.Provider value={{ authState, setAuthState }}>
 				<Router>
+					{/* Barre de navigation */}
 					<div className="navbar">
+						{/* Liens vers les autres pages */}
 						<div className="links">
+							{/* Si user true (non login) afficher sur la navbar : logo, login et registration */}
 							{!authState.status ? (
 								<>
+									<Link to="/login">
+										<img src={logo} alt={'logo'} className="logo" />
+									</Link>
 									<Link to="/login"> Se connecter</Link>
 									<Link to="/registration"> Créer nouveau compte</Link>
 								</>
-							) : (
+							) :
+							// Sinon affiche le logo et createpost
+							(
 								<>
 									<Link to="/">
 										<img src={logo} alt={'logo'} className="logo" />
@@ -75,6 +90,7 @@ function App() {
 							)}
 						</div>
 					</div>
+					{/* Router > Switch > Route ; affiche les pages par routes */}
 					<Switch>
 						<Route path="/" exact component={Home} />
 						<Route path="/createpost" exact component={CreatePost} />

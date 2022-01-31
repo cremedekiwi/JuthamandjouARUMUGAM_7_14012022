@@ -113,7 +113,7 @@ button {
 	background-color: #242526;
 }
 
-.formContainer #inputCreatePost {
+.formContainer .inputCreatePost {
 	height: 40px;
 	margin-top: 10px;
 	margin-bottom: 10px;

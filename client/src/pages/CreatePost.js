@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik' // Pour les formulaires
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom'
 function CreatePost() {
 
 	let history = useHistory()
+
+	// Initialise les champs
 	const initialValues = {
 		title: '',
 		postText: '',
@@ -16,47 +18,58 @@ function CreatePost() {
 		if (!localStorage.getItem('accessToken')) {
 			history.push('/login')
 		}
-		// eslint-disable-next-line
-	}, [])
+	}, [history])
+
+	// Marche avec Formik, permet de créer des restrictions, ici string et champs requis
 	const validationSchema = Yup.object().shape({
 		title: Yup.string().required('Titre requis'),
-		postText: Yup.string().required('Contenu requis'),
+		postText: Yup.string().required('Message requis'),
 	})
 
+	// Envoi les données du formulaire, data contient le body
 	const onSubmit = (data) => {
 		axios
 			.post('http://localhost:3001/posts', data, {
 				headers: { accessToken: localStorage.getItem('accessToken') },
 			})
 			.then((response) => {
-				history.push('/')
+				history.push('/') // Redirige vers la page d'accueil
 			})
 	}
 
 	return (
+		// Conteneur
 		<div className="createPostPage">
 			<Formik
+				// Valeurs initiales 
 				initialValues={initialValues}
+				// Fonctions à lancer au click
 				onSubmit={onSubmit}
+				// Mets des restrictions sur les champs
 				validationSchema={validationSchema}
 			>
 				<Form className="formContainer">
+					{/* Affiche les messages d'erreurs par rapport au titre */}
 					<ErrorMessage name="title" component="span" />
+					{/* Field = input */}
 					<Field
+						// Pour ne pas voir l'historique
 						autoComplete="off"
-						id="inputCreatePost"
+						className="inputCreatePost"
+						// Le même champ que sur la BDD
 						name="title"
-						placeholder="(Ex. Titre)"
+						// Décrit ce qu'on doit mettre
+						placeholder="Titre"
 					/>
 					<ErrorMessage name="postText" component="span" />
 					<Field
 						autoComplete="off"
-						id="inputCreatePost"
+						className="inputCreatePost"
 						name="postText"
-						placeholder="(Ex. Post)"
+						placeholder="Message"
 					/>
 
-					<button type="submit"> Create Post</button>
+					<button type="submit">Créer</button>
 				</Form>
 			</Formik>
 		</div>

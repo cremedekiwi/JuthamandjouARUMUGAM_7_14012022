@@ -2,6 +2,7 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 
 function Registration() {
 	const initialValues = {
@@ -14,9 +15,12 @@ function Registration() {
 		password: Yup.string().min(4).max(20).required('Mot de passe requis'),
 	})
 
+	let history = useHistory()
+
+	// Envoi les données puis redirige vers la page login après la création de compte
 	const onSubmit = (data) => {
 		axios.post('http://localhost:3001/auth', data).then(() => {
-			console.log(data)
+			history.push('/login')
 		})
 	}
 
@@ -28,19 +32,20 @@ function Registration() {
 				validationSchema={validationSchema}
 			>
 				<Form className="formContainer">
+					<label><h1>S'enregistrer</h1></label>
 					<ErrorMessage name="username" component="span" />
 					<Field
-						autocomplete="off"
-						id="inputCreatePost"
+						autoComplete="off"
+						className="inputCreatePost"
 						name="username"
 						placeholder="Pseudo"
 					/>
 
 					<ErrorMessage name="password" component="span" />
 					<Field
-						autocomplete="off"
+						autoComplete="off"
 						type="password"
-						id="inputCreatePost"
+						className="inputCreatePost"
 						name="password"
 						placeholder="Mot de passe"
 					/>

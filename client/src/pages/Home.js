@@ -9,12 +9,13 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 function Home() {
 	const [listOfPosts, setListOfPosts] = useState([])
 	const [likedPosts, setLikedPosts] = useState([])
-	let history = useHistory()
+	let history = useHistory() // Permet de faire des redirections
 
 	useEffect(() => {
 		if (!localStorage.getItem('accessToken')) {
 			history.push('/login')
 		} else {
+			// On récupère les posts via axios ; le token est requis
 			axios
 				.get('http://localhost:3001/posts', {
 					headers: { accessToken: localStorage.getItem('accessToken') },
@@ -28,8 +29,7 @@ function Home() {
 					)
 				})
 		}
-		// eslint-disable-next-line
-	}, [])
+	}, [history])
 
 	const likeAPost = (postId) => {
 		// Utilise axios pour faire une requête vers notre bdd
@@ -77,6 +77,7 @@ function Home() {
 					// utiliser key={key} pour avoir un id unique, et ne pas avoir de warning
 					<div key={key} className="post">
 						<div className="title"> {value.title} </div>
+						{/* Au click, redirige avec history.push vers la page du post (value.id) */}
 						<div
 							className="body"
 							onClick={() => {
