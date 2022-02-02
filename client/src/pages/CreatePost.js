@@ -15,6 +15,7 @@ function CreatePost() {
 	}
 
 	useEffect(() => {
+		// Si accessToken est false (non login), on redirige vers la page login
 		if (!localStorage.getItem('accessToken')) {
 			history.push('/login')
 		}
@@ -30,7 +31,7 @@ function CreatePost() {
 	const onSubmit = (data) => {
 		axios
 			.post('http://localhost:3001/posts', data, {
-				headers: { accessToken: localStorage.getItem('accessToken') },
+				headers: { accessToken: localStorage.getItem('accessToken') }, // accessToken contient username
 			})
 			.then((response) => {
 				history.push('/') // Redirige vers la page d'accueil

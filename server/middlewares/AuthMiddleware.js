@@ -1,5 +1,5 @@
 const { verify } = require("jsonwebtoken"); // Permet de vérifier un token
-require('dotenv').config()
+require('dotenv').config() // Utilise dotenv pour cacher des données sensibles
 
 // Fonction qui se lance avant une requête, vérfie si on continue ou non
 const validateToken = (req, res, next) => {
@@ -10,7 +10,7 @@ const validateToken = (req, res, next) => {
 
   // Utilise verify de jsonwebtoken pour voir si le token est valide
   try {
-    const validToken = verify(accessToken, `${process.env.SECRET}`);
+    const validToken = verify(accessToken, `${process.env.SECRET}`); // ON utilise une var pour le SECRET
     req.user = validToken; // Crée une variable user avec les informations de validToken (username + id)
 
     // Si validToken est true, autorise la poursuite de la requête

@@ -22,7 +22,7 @@ router.post('/', validateToken, async (req, res) => {
 	res.json(newComment) // Retourne le nouveau commentaire
 })
 
-// Supprime un commentaire
+// Supprime un commentaire avec son id
 router.delete('/:commentId', validateToken, async (req, res) => {
 	const commentId = req.params.commentId // Récupère l'id du commentaire
 
@@ -32,7 +32,7 @@ router.delete('/:commentId', validateToken, async (req, res) => {
 		},
 	})
 
-	res.json('Supprimé')
+	res.json('Supprimé') // Envoi une réponse, pour pouvoir finir la requête
 })
 
 module.exports = router

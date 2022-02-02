@@ -56,9 +56,11 @@ router.get('/verify', validateToken, (req, res) => {
 	res.json(req.user) // Retourne si c'est valide ou non
 })
 
-router.get('/basicinfo/:id', async (req, res) => {
+// Récupère les infos pour le profil
+router.get('/basicInfo/:id', async (req, res) => {
 	const id = req.params.id
 
+	// Cherche avec la clé primaire dans la table Users sans le MDP
 	const basicInfo = await Users.findByPk(id, {
 		attributes: { exclude: ['password'] },
 	})
@@ -66,20 +68,25 @@ router.get('/basicinfo/:id', async (req, res) => {
 	res.json(basicInfo)
 })
 
+// Modifie le mot de passe, user doit être login
 router.put('/changepassword', validateToken, async (req, res) => {
-	const { oldPassword, newPassword } = req.body
-	const user = await Users.findOne({ where: { username: req.user.username } })
+	const { oldPassword, newPassword } = req.body // Récupère l'ancien et le nouveau password du body
+	const user = await Users.findOne({ where: { username: req.user.username } }) // Récupère user
 
+	// Utilise bcrypt pour comparer lsi le mot de passe est valide
 	bcrypt.compare(oldPassword, user.password).then(async (match) => {
-		if (!match) res.json({ error: 'Mauvais mot de passe' })
-
-		bcrypt.hash(newPassword, 10).then((hash) => {
+		if (!match)  {
+			res.json({ error: 'Mauvais mot de passe' })
+		} else {
+			// hash contient le nouveau mot de passe crypt
+			bcrypt.hash(newPassword, 10).then((hash) => {
 			Users.update(
 				{ password: hash },
 				{ where: { username: req.user.username } }
 			)
 			res.json('Mot de passe changé')
-		})
+			})
+		}
 	})
 })
 

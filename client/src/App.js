@@ -36,7 +36,7 @@ function App() {
 				if (response.data.error) {
 					setAuthState({ ...authState, status: false })
 				}
-				// Sinon user valide, et il est authentifié avec un status true
+				// Sinon user valide, il est authentifié avec username, id et status true
 				else {
 					setAuthState({
 						username: response.data.username,
@@ -48,6 +48,7 @@ function App() {
 	// eslint-disable-next-line
 	}, [])
 
+	// Fonction se déconnecter, supprime accessToken du localStorage, met à jour authState à false, et recharge la page
 	const logout = () => {
 		localStorage.removeItem('accessToken')
 		setAuthState({ username: '', id: 0, status: false })
@@ -63,7 +64,7 @@ function App() {
 					<div className="navbar">
 						{/* Liens vers les autres pages */}
 						<div className="links">
-							{/* Si user true (non login) afficher sur la navbar : logo, login et registration */}
+							{/* Si authState false (non login) afficher sur la navbar : logo, login et registration */}
 							{!authState.status ? (
 								<>
 									<Link to="/login">
@@ -84,7 +85,9 @@ function App() {
 							)}
 						</div>
 						<div className="loggedInContainer">
+							{/* Affiche username */}
 							<h1>{authState.username} </h1>
+							{/* Si authState true (login), afficher l'icon logout */}
 							{authState.status && (
 								<LogoutIcon className="logout" onClick={logout}></LogoutIcon>
 							)}
@@ -94,11 +97,14 @@ function App() {
 					<Switch>
 						<Route path="/" exact component={Home} />
 						<Route path="/createpost" exact component={CreatePost} />
+						{/* Affiche les posts individuellement au clic */}
 						<Route path="/post/:id" exact component={Post} />
 						<Route path="/registration" exact component={Registration} />
 						<Route path="/login" exact component={Login} />
+						{/* Affiche le profil avec les posts de l'user */}
 						<Route path="/profile/:id" exact component={Profile} />
 						<Route path="/changepassword" exact component={ChangePassword} />
+						{/* Pour toutes les autres routes, error 404 */}
 						<Route path="*" exact component={PageNotFound} />
 					</Switch>
 				</Router>

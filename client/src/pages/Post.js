@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import axios from 'axios'
-import { AuthContext } from '../helpers/AuthContext'
+import { AuthContext } from '../helpers/AuthContext' 
 import DeleteIcon from '@mui/icons-material/Delete'
 
 function Post() {
@@ -11,7 +11,7 @@ function Post() {
 	const [postObject, setPostObject] = useState({}) // state du post
 	const [comments, setComments] = useState([]) // state du commentaire
 	const [newComment, setNewComment] = useState('') // state du commentaire qu'on écrit
-	const { authState } = useContext(AuthContext)
+	const { authState } = useContext(AuthContext) // Permet d'utiliser des variables entre les routes
 
 	let history = useHistory()
 
@@ -63,13 +63,14 @@ function Post() {
 		}
 	}
 
-	// Supprime un commentaire
+	// Supprime un commentaire, prend id en paramètre
 	const deleteComment = (id) => {
 		axios
-			.delete(`http://localhost:3001/comments/${id}`, {
-				headers: { accessToken: localStorage.getItem('accessToken') },
+			.delete(`http://localhost:3001/comments/${id}`, { // On rajoute id dans la requête axios
+				headers: { accessToken: localStorage.getItem('accessToken') }, // On passe accessToken dans le header
 			})
 			.then(() => {
+				// Filtre les commentaires pour récupérer ceux différent de notre id
 				setComments(
 					comments.filter((val) => {
 						return val.id != id
@@ -78,7 +79,7 @@ function Post() {
 			})
 	}
 
-	// Supprime un post
+	// Supprime un post avec id
 	const deletePost = (id) => {
 		axios
 			.delete(`http://localhost:3001/posts/${id}`, {
@@ -89,14 +90,18 @@ function Post() {
 			})
 	}
 
-	// Modifie un post
+	// Modifie
 	const editPost = (option) => {
+		// Modifie le titre
 		if (option === 'title') {
-			let newTitle = prompt('Enter New Title:')
+			// Variable qui contient le prompt titre
+			let newTitle = prompt('Nouveau titre :')
+			// Empêche que le titre soit null
 			if (newTitle != undefined && newTitle != "") {
 				axios.put(
 					'http://localhost:3001/posts/title',
 					{
+						// Body
 						newTitle: newTitle,
 						id: id,
 					},
@@ -105,14 +110,19 @@ function Post() {
 					}
 				)
 				
-					setPostObject({ ...postObject, title: newTitle })
+					setPostObject({ ...postObject, title: newTitle }) // On garde postObject et on change uniquement title
 			}
-		} else {
-			let newPostText = prompt('Enter New Text:')
+		}
+		// Modifie le corps du post
+		else {
+			// Variable qui contient le prompt  du nouveau texte
+			let newPostText = prompt('Nouveau texte :')
+			// Empêche que le post soit null
 			if (newPostText != undefined && newPostText != "") {
 				axios.put(
 					'http://localhost:3001/posts/postText',
 					{
+						// Body
 						newText: newPostText,
 						id: id,
 					},
@@ -121,7 +131,7 @@ function Post() {
 					}
 				)
 
-					setPostObject({ ...postObject, postText: newPostText })
+					setPostObject({ ...postObject, postText: newPostText }) // On garde postObject et on change uniquement postText
 			}
 		}
 	}
@@ -131,9 +141,11 @@ function Post() {
 			{/* Côté gauche : post */}
 			<div className="leftSide">
 				<div className="post" id="individual">
+					{/* Titre, au click on peut le modifier */}
 					<div
 						className="title"
 						onClick={() => {
+							// Uniquement la personne qui a crée le post peut le titre
 							if (authState.username === postObject.username) {
 								editPost('title')
 							}
@@ -141,9 +153,11 @@ function Post() {
 					>
 						{postObject.title}
 					</div>
+					{/* Corps, au click on peut le modifier */}
 					<div
 						className="body"
 						onClick={() => {
+							// Uniquement la personne qui a crée le post peut modifier le post
 							if (authState.username === postObject.username) {
 								editPost('body')
 							}
@@ -151,6 +165,7 @@ function Post() {
 					>
 						{postObject.postText}
 					</div>
+					{/* Username & like */}
 					<div className="footer">
 						<div className="username">{postObject.username}</div>
 						<div className="buttons">
@@ -194,6 +209,7 @@ function Post() {
 									<label>{comment.username}</label> : {comment.commentBody}
 								</div>
 								<div>
+									{/* Affiche l'icon delete si username de authState égal celui qui l'a écrit */}
 									{authState.username === comment.username && (
 										<DeleteIcon
 											className="delete"

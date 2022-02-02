@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 
 function PageNotFound() {
   return (
-    <div>
-      <h1>Page Not Found :/</h1>
-      <h3>
-        Go to the Home Page: <Link to="/"> Home Page</Link>
-      </h3>
+    <div className="centerRegister toTheLine">
+      <h1>Erreur 404 :/</h1>
+      <h1><Link to="/">Retour à l'accueil</Link></h1>    
     </div>
   );
 }

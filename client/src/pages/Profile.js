@@ -6,18 +6,20 @@ import axios from 'axios'
 import { AuthContext } from '../helpers/AuthContext'
 
 function Profile() {
-	let { id } = useParams()
+	let { id } = useParams() // Récupère id de l'URL
 	let history = useHistory()
-	const [username, setUsername] = useState('')
-	const [listOfPosts, setListOfPosts] = useState([])
+	const [username, setUsername] = useState('') // State username
+	const [listOfPosts, setListOfPosts] = useState([]) // State listOfPosts
 	const { authState } = useContext(AuthContext)
 
 	useEffect(() => {
-		axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
+		// Récupère username et le rajoute au state
+		axios.get(`http://localhost:3001/auth/basicInfo/${id}`).then((response) => {
 			setUsername(response.data.username)
 		})
 
-		axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
+		// Récupère les posts qui appartient au profil et le rajoute au state
+		axios.get(`http://localhost:3001/posts/byUserId/${id}`).then((response) => {
 			setListOfPosts(response.data)
 		})
 	}, [id])
@@ -25,20 +27,22 @@ function Profile() {
 	return (
 		<div className="profilePageContainer">
 			<div className="basicInfo">
-				{' '}
+				{/* Username */}
 				<h1>{username} </h1>
+				{/* Affiche changer le MDP si c'est l'utilisateur du profil qui est connecté */}
 				{authState.username === username && (
 					<button
 						onClick={() => {
+							// Redirge vers la page changepassword
 							history.push('/changepassword')
 						}}
 					>
-						{' '}
-						Change My Password
+						Changer le mot de passe
 					</button>
 				)}
 			</div>
 			<div className="listOfPosts">
+				{/* Affiche tout les posts */}
 				{listOfPosts.map((value, key) => {
 					return (
 						<div key={key} className="post">

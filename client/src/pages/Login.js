@@ -25,16 +25,15 @@ function Login() {
 			if (response.data.error) {
 				alert(response.data.error)
 			} else {
-				// Crée le token dans le localStorage
-				localStorage.setItem('accessToken', response.data.token)
-				// Change le authState, quand tu te login, ça récupère ton username, id et ton nouveau status
+				// Récupère les infos depuis routes/Users quand on se login
+				localStorage.setItem('accessToken', response.data.token) // Crée le token dans le localStorage
+				// authState met à jour ton username, id et status
 				setAuthState({
 					username: response.data.username,
 					id: response.data.id,
 					status: true,
 				})
-				// Redirige vers la page des posts
-				history.push('/')
+				history.push('/') // Redirige vers la page des posts
 			}
 		})
 	}
