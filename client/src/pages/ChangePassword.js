@@ -33,7 +33,7 @@ function ChangePassword() {
   };
 
   return (
-    <div className="centerRegister toTheLine">
+    <div className="centerVertical toTheLine">
       <h1>Modifier MDP</h1>
       <input
         className="changePassword"
@@ -51,7 +51,7 @@ function ChangePassword() {
           setNewPassword(event.target.value); // Met à jour le state newPassword
         }}
       />
-      <button onClick={changePassword}> Modifier</button>
+      <button id="modifyChangePassword" onClick={changePassword}> Modifier</button>
     </div>
   );
 }

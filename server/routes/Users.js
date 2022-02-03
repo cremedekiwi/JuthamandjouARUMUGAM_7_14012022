@@ -90,4 +90,16 @@ router.put('/changepassword', validateToken, async (req, res) => {
 	})
 })
 
+// Supprime un user
+router.delete('/deleteUser/:id', validateToken, async (req, res) => {
+	const userId = req.user.id
+	await Users.destroy({
+		where: {
+			id: userId,
+		},
+	})
+
+	res.json('Compte supprimé')
+})
+
 module.exports = router

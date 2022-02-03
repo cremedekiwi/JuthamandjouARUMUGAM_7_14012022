@@ -1,21 +1,27 @@
+/*  */
+/* GENERAL */
+/*  */
+
 .App {
-	width: 100%;
-	height: auto;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
-/* Enlève la sélection pointillé sur Firefox */
-:focus {outline:none;}
-::-moz-focus-inner {border:0;}
-
 body {
-	margin: 0;
-	padding: 0;
-	background-color: #18191a;
-	color: #e4e6eb;
-	font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #18191a;
+    color: #e4e6eb;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.toTheLine {
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
 }
 
 .logout,
@@ -24,8 +30,163 @@ button {
 	cursor: pointer;
 }
 
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Enlève la sélection pointillé sur Firefox */
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+.centerVertical {
+	display: flex;
+	align-items: center;
+	height: 90vh;
+}
+
+/* NAVBAR */
+
+.navbar {
+	width: 100%;
+	height: 70px;
+	background-color: #242526;
+	display: flex;
+	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar .links {
+	flex: 50%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.navbar .loggedInContainer {
+	flex: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+@media (max-width: 768px) {
+    .navbar .links {
+        flex: auto;
+    }
+    
+    .navbar .loggedInContainer {
+        flex: auto;
+    }
+}
+
+a {
+	margin-left: 20px;
+	text-decoration: none;
+	color: white;
+}
+
+.navbar button {
+	width: 100px;
+	height: 40px;
+	margin-right: 10px;
+	background-color: white;
+}
+
+.navbar h1 {
+	text-align: right;
+	margin-right: 10px;
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.logout {
+	margin-left: 25px;
+	margin-right: 20px;
+}
+
+.logo {
+	width: 40px;
+	height: 40px;
+}
+
+/* FORM */
+
+.createPostPage {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100vw;
+	height: 90vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 25vw;
+	height: auto;
+	padding: 20px;
+	border-radius: 5px;
+	background-color: #242526;
+}
+
+@media (max-width: 768px) {
+    .centerVertical {
+        height: 89vh;
+    }
+    
+    .formContainer {
+        width: 75vw;
+    }
+}
+
+@media ((min-width: 769px) and (max-width: 992px)) {
+    .formContainer {
+        width: 50vw;
+    }
+}
+
+
+.formContainer .inputCreatePost {
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 2px solid grey;
+	border-radius: 5px;
+	padding-left: 10px;
+	font-size: 20px;
+}
+
+.formContainer button {
+	margin-top: 15px;
+	height: 40px;
+	width: auto; 
+	border: none;
+	background-color: #3a3b3c;
+	border-radius: 5px;
+	color: white;
+}
+
+.formContainer button:hover {
+	background-color: #4e4f50;
+}
+
+span {
+	color: red;
+}
+
+/* POST */
+
 .post {
-	width: 600px;
+	width: 30vw;
+	max-width: 600px;
 	height: 450px;
 	border-radius: 10px;
 	display: flex;
@@ -33,6 +194,20 @@ button {
 	margin-top: 25px;
 	margin-bottom: 25px;
 	background-color: #242526;
+}
+
+@media (max-width: 768px) {
+    .post {
+        width: 90vw;
+        height: 50vh;
+    }
+}
+
+@media ((min-width: 769px) and (max-width: 992px)) {
+    .post {
+        width: 94vw;
+        height: 50vh;
+    }
 }
 
 .post .title {
@@ -90,122 +265,6 @@ button {
 	margin-left: 10px;
 }
 
-/* CREATE POST PAGE CSS */
-
-.createPostPage {
-	font-family: Arial, Helvetica, sans-serif;
-	width: 100vw;
-	height: 90vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.centerRegister {
-	display: flex;
-	align-items: center;
-	height: 90vh;
-}
-
-.toTheLine {
-	flex-direction: column;
-	justify-content: center;
-	gap: 10px;
-}
-
-.formContainer {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 500px;
-	height: auto;
-	padding: 20px;
-	border-radius: 5px;
-	background-color: #242526;
-}
-
-.formContainer .inputCreatePost {
-	height: 40px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border: 2px solid grey;
-	border-radius: 5px;
-	padding-left: 10px;
-	font-size: 20px;
-}
-
-.formContainer button {
-	margin-top: 15px;
-	height: 40px;
-	border: none;
-	background-color: #3a3b3c;
-	border-radius: 5px;
-	color: white;
-}
-
-.formContainer button:hover {
-	background-color: #4e4f50;
-}
-
-span {
-	color: red;
-}
-
-/* NAVBAR */
-
-.navbar {
-	width: 100%;
-	height: 70px;
-	background-color: #242526;
-	display: flex;
-	align-items: center;
-	font-family: Arial, Helvetica, sans-serif;
-}
-.navbar .links {
-	flex: 50%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-}
-
-.navbar .loggedInContainer {
-	flex: 50%;
-	height: 100%;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-}
-a {
-	margin-left: 20px;
-	text-decoration: none;
-	color: white;
-}
-
-.navbar button {
-	width: 100px;
-	height: 40px;
-	margin-right: 10px;
-	background-color: white;
-}
-
-.navbar h1 {
-	text-align: right;
-	margin-right: 10px;
-	color: white;
-	font-weight: bold;
-	font-size: 15px;
-}
-
-.logout {
-	margin-left: 25px;
-	margin-right: 20px;
-}
-
-.logo {
-	width: 40px;
-	height: 40px;
-}
-
 /* INDIVIDUAL POST */
 .postPage {
 	display: flex;
@@ -230,6 +289,29 @@ a {
 	flex-direction: column;
 }
 
+@media (max-width: 992px) {
+    .postPage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .leftSide {
+        flex: auto;
+        height: auto;
+        display: flex;
+        place-items: auto;
+    }
+    
+    .rightSide {
+        flex: auto;
+        height: auto;
+        display: flex;
+        place-items: auto;
+        flex-direction: column;
+    }
+}
+
 .rightSide .addCommentContainer {
 	margin-top: 70px;
 }
@@ -242,6 +324,31 @@ button {
 	border: none;
 	background-color: #3a3b3c;
 	color: white;
+    margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .rightSide .addCommentContainer {
+        display: flex;
+        margin-top: 0px;
+    }
+
+    .addCommentContainer input, button {
+        width: 60vw;
+        margin: 3px;
+    }
+}
+
+@media ((min-width: 769px) and (max-width: 992px)) {
+    .rightSide .addCommentContainer {
+        display: flex;
+        margin-top: 0px;
+    }
+
+    .addCommentContainer input, button {
+        width: 81vw;
+        margin: 3px;
+    }
 }
 
 .addCommentContainer button {
@@ -272,6 +379,18 @@ button {
 	margin-top: 20px;
 }
 
+@media (max-width: 768px) {
+    .listOfComments .comment {
+        width: 83vw;
+    }
+}
+
+@media ((min-width: 769px) and (max-width: 992px)) {
+    .listOfComments .comment {
+        width: 91vw;
+    }
+}
+
 .comment {
 	display: flex;
 	align-items: center;
@@ -283,8 +402,22 @@ button {
 }
 
 #individual {
+	width: 35vw;
 	height: 500px;
-	width: 600px;
+}
+
+@media (max-width: 768px) {
+    #individual {
+        width: 90vw;
+        height: 50vh;
+    }
+}
+
+@media ((min-width: 769px) and (max-width: 992px)) {
+    #individual {
+        width: 94vw;
+        height: 50vh;
+    }
 }
 
 #individual .title,
@@ -294,35 +427,6 @@ button {
 
 #individual .body {
 	font-size: 15px;
-}
-
-/* LOGIN */
-
-.loginContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	width: 100%;
-	height: 76vh;
-}
-
-.loginContainer input,
-button {
-	width: 200px;
-	height: 50px;
-	border-radius: 8px;
-	border: none;
-	margin: 10px;
-}
-
-.loginContainer button {
-	background-color: #3a3b3c;
-	color: white;
-}
-
-.loginContainer input {
-	border: 2px solid #4e4f50;
 }
 
 /* Changer MDP */
@@ -335,4 +439,30 @@ button {
 	border: none;
 	background-color: #3a3b3c;
 	color: white;
+}
+
+@media (max-width: 768px) {
+    .changePassword {
+        width: 57vw;
+    }
+
+	#changePasswordProfile {
+		width: 89vw;
+	}
+}
+
+@media ((min-width: 769px) and (max-width: 992px)) {
+    .changePassword {
+        width: 40vw;
+    }
+
+    #modifyChangePassword {
+        width: 42vw;
+    }
+}
+
+/* PROFILE */
+
+.basicInfo button {
+	width: 46%;
 }

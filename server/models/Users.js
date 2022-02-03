@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  // Un user peut avoir plusieurs likes, et plusieurs posts
+  // Un user peut avoir plusieurs likes, posts ou commentaire
   Users.associate = (models) => {
     Users.hasMany(models.Likes, {
       onDelete: "cascade",
@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     Users.hasMany(models.Posts, {
       onDelete: "cascade",
     });
+
+    Users.hasMany(models.Comments, {
+			onDelete: 'cascade',
+		})
   };
 
   return Users;

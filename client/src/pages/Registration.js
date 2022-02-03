@@ -25,7 +25,7 @@ function Registration() {
 	}
 
 	return (
-		<div className="centerRegister">
+		<div className="centerVertical">
 			<Formik
 				initialValues={initialValues}
 				onSubmit={onSubmit}

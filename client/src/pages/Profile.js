@@ -10,7 +10,7 @@ function Profile() {
 	let history = useHistory()
 	const [username, setUsername] = useState('') // State username
 	const [listOfPosts, setListOfPosts] = useState([]) // State listOfPosts
-	const { authState } = useContext(AuthContext)
+	const { authState, setAuthState } = useContext(AuthContext)
 
 	useEffect(() => {
 		// Récupère username et le rajoute au state
@@ -24,6 +24,20 @@ function Profile() {
 		})
 	}, [id])
 
+	// Supprime un compte avec id
+	const deleteAccount = () => {
+		axios
+			.delete(`http://localhost:3001/auth/deleteUser/${id}`, {
+				headers: { accessToken: localStorage.getItem('accessToken') },
+			})
+			.then(() => {
+				localStorage.removeItem('accessToken')
+				setAuthState({ username: '', id: 0, status: false })
+				alert('Compte supprimé')
+				history.push('/login')
+			})
+	}
+
 	return (
 		<div className="profilePageContainer">
 			<div className="basicInfo">
@@ -31,14 +45,25 @@ function Profile() {
 				<h1>{username} </h1>
 				{/* Affiche changer le MDP si c'est l'utilisateur du profil qui est connecté */}
 				{authState.username === username && (
-					<button
+					<>
+						<button
+							onClick={() => {
+								// Redirge vers la page changepassword
+								history.push('/changepassword')
+							}}
+						>
+							Changer le mot de passe
+						</button>
+
+						<button
 						onClick={() => {
-							// Redirge vers la page changepassword
-							history.push('/changepassword')
+							deleteAccount(id)
 						}}
-					>
-						Changer le mot de passe
-					</button>
+						>
+							Supprimer le compte
+						</button>
+					</>
+					
 				)}
 			</div>
 			<div className="listOfPosts">

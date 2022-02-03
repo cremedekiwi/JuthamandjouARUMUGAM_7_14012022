@@ -38,7 +38,7 @@ function Login() {
 		})
 	}
 	return (
-		<div className="centerRegister">
+		<div className="centerVertical">
 			<Formik initialValues={initialValues} onSubmit={login}>
 				<Form className="formContainer">
 					<label><h1>Se connecter</h1></label>
