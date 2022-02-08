@@ -17,16 +17,19 @@ function Post() {
 
 	// Se lance quand on render la page
 	useEffect(() => {
-		// Récupère un post grâce à l'id
-		axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
-			setPostObject(response.data)
-		})
+		if (!localStorage.getItem('accessToken')) {
+			history.push('/login')
+		} else {
+			// Récupère un post grâce à l'id
+			axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
+				setPostObject(response.data)
+			})
 
-		// Récupères les commentaires lié à un post
-		axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-			setComments(response.data)
-		})
-		
+			// Récupères les commentaires lié à un post
+			axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+				setComments(response.data)
+			})
+		}
 	}, [id])
 
 	// Ajoute un commentaire

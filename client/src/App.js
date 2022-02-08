@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom'
 import Home from './pages/Home'
 import CreatePost from './pages/CreatePost'
 import Post from './pages/Post'
@@ -21,6 +21,8 @@ function App() {
 		id: 0,
 		status: false,
 	})
+
+	let history = useHistory()
 
 	// Render quand on arrive sur la page
 	useEffect(() => {

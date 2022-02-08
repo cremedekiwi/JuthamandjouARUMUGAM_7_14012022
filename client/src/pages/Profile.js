@@ -13,15 +13,19 @@ function Profile() {
 	const { authState, setAuthState } = useContext(AuthContext)
 
 	useEffect(() => {
-		// Récupère username et le rajoute au state
-		axios.get(`http://localhost:3001/auth/basicInfo/${id}`).then((response) => {
-			setUsername(response.data.username)
-		})
+		if (!localStorage.getItem('accessToken')) {
+			history.push('/login')
+		} else {
+			// Récupère username et le rajoute au state
+			axios.get(`http://localhost:3001/auth/basicInfo/${id}`).then((response) => {
+				setUsername(response.data.username)
+			})
 
-		// Récupère les posts qui appartient au profil et le rajoute au state
-		axios.get(`http://localhost:3001/posts/byUserId/${id}`).then((response) => {
-			setListOfPosts(response.data)
-		})
+			// Récupère les posts qui appartient au profil et le rajoute au state
+			axios.get(`http://localhost:3001/posts/byUserId/${id}`).then((response) => {
+				setListOfPosts(response.data)
+			})
+		}	
 	}, [id])
 
 	// Supprime un compte avec id
