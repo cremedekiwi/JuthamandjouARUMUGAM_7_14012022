@@ -196,6 +196,11 @@ span {
 	background-color: #242526;
 }
 
+.imagePost {
+	margin-top: 10px;
+	width: 100%;
+}
+
 @media (max-width: 768px) {
     .post {
         width: 90vw;

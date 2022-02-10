@@ -8,8 +8,8 @@ app.use(cors()); // permet de faire des requêtes entre client et server
 const db = require("./models"); // importe les modéles
 
 // Import des routes
-const postRouter = require("./routes/Posts");
-app.use("/posts", postRouter);
+const {router} = require("./routes/Posts");
+app.use("/posts", router);
 const commentsRouter = require("./routes/Comments");
 app.use("/comments", commentsRouter);
 const usersRouter = require("./routes/Users");

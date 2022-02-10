@@ -26,7 +26,7 @@ function Profile() {
 				setListOfPosts(response.data)
 			})
 		}	
-	}, [id])
+	}, [history, id])
 
 	// Supprime un compte avec id
 	const deleteAccount = () => {

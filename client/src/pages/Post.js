@@ -30,7 +30,7 @@ function Post() {
 				setComments(response.data)
 			})
 		}
-	}, [id])
+	}, [history, id])
 
 	// Ajoute un commentaire
 	const addComment = () => {

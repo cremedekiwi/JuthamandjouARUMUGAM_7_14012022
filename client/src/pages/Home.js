@@ -95,6 +95,7 @@ function Home() {
 				return (
 					// utiliser key={key} pour avoir un id unique, et ne pas avoir de warning
 					<div key={key} className="post">
+						
 						{/* Titre */}
 						<div className="title"> {value.title} </div>
 						{/* Au click sur le post, redirige vers la page du post */}
@@ -105,6 +106,7 @@ function Home() {
 							}}
 						>
 							{value.postText}
+							<img src={value.imageUrl} className="imagePost" />
 						</div>
 						<div className="footer">
 							{/* Username */}

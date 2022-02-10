@@ -3,6 +3,7 @@ const router = express.Router() // Permet de faire des routes
 const { Posts, Likes } = require('../models')
 
 const { validateToken } = require('../middlewares/AuthMiddleware')
+const { upload, uploadImage } = require('../middlewares/UploadMiddleware')
 
 // Affiche tout les posts
 router.get('/', validateToken, async (req, res) => {
@@ -40,11 +41,22 @@ router.get('/byUserId/:id', async (req, res) => {
 
 // Crée le post
 router.post('/', validateToken, async (req, res) => {
-	const post = req.body // Récupère les données du formulaire : title et postText
+	post = req.body // Récupère les données du formulaire : title et postText
 	post.username = req.user.username // Récupère username depuis validateToken
 	post.UserId = req.user.id // Récupère id depuis validateToken
 	await Posts.create(post) // Sequelize crée le post, il a besoin de toutes ces colonnes
-	res.json(post) // Envoi la réponse
+		.then((result) => {
+			post.postId = result.id // Récupère postId lors de la création du post
+		})
+		console.log("route", post.postId)
+		module.exports.post = post.postId
+		res.json(post) // Envoi la réponse
+})
+	
+
+// Envoi le nom de la photo
+router.put('/', validateToken, uploadImage, upload, (req, res) => {
+	res.send('Envoi de la photo')
 })
 
 // Modifie le titre
@@ -73,4 +85,4 @@ router.delete('/:postId', validateToken, async (req, res) => {
 	res.json('Supprimé')
 })
 
-module.exports = router
+module.exports.router = router
