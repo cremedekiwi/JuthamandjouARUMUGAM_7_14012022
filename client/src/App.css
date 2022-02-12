@@ -185,9 +185,9 @@ span {
 /* POST */
 
 .post {
-	width: 30vw;
+	/* width: 30vw; */
 	max-width: 600px;
-	height: 450px;
+	min-height: 450px;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -198,6 +198,8 @@ span {
 
 .imagePost {
 	margin-top: 10px;
+	/* margin-left: 5%; */
+	margin-bottom: 10px;
 	width: 100%;
 }
 
@@ -216,6 +218,7 @@ span {
 }
 
 .post .title {
+	min-height: 50px;
 	border-radius: 10px 10px 0 0;
 	flex: 15%;
 	background-color: #3a3b3c;
@@ -224,6 +227,7 @@ span {
 }
 
 .post .body {
+	min-height: 350px;
 	flex: 70%;
 	display: grid;
 	place-content: center;
@@ -231,6 +235,7 @@ span {
 }
 
 .post .footer {
+	min-height: 50px;
 	flex: 15%;
 	display: flex;
 	align-items: center;

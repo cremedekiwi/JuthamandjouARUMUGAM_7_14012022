@@ -168,6 +168,7 @@ function Post() {
 					>
 						{postObject.postText}
 					</div>
+					<img src={`../${postObject.imageUrl}`} className="imagePost" alt="" />
 					{/* Username & like */}
 					<div className="footer">
 						<div className="username">{postObject.username}</div>

@@ -106,7 +106,7 @@ function Home() {
 							}}
 						>
 							{value.postText}
-							<img src={value.imageUrl} className="imagePost" />
+							{value.imageUrl != null && <img src={value.imageUrl} className="imagePost" alt="" />}
 						</div>
 						<div className="footer">
 							{/* Username */}

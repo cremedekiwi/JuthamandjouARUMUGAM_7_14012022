@@ -18,6 +18,7 @@ router.get('/', validateToken, async (req, res) => {
 
 	// Envoi listOfPosts et likedPosts
 	res.json({ listOfPosts, likedPosts })
+
 })
 
 // Affiche les posts individuellement
@@ -47,16 +48,15 @@ router.post('/', validateToken, async (req, res) => {
 	await Posts.create(post) // Sequelize crée le post, il a besoin de toutes ces colonnes
 		.then((result) => {
 			post.postId = result.id // Récupère postId lors de la création du post
+			console.log("Route : ", post.postId)
+			module.exports.post = post.postId
 		})
-		console.log("route", post.postId)
-		module.exports.post = post.postId
 		res.json(post) // Envoi la réponse
-})
-	
+})	
 
 // Envoi le nom de la photo
-router.put('/', validateToken, uploadImage, upload, (req, res) => {
-	res.send('Envoi de la photo')
+router.put('/', validateToken, uploadImage, upload, async (req, res) => {
+	await res.send('Envoi de la photo')
 })
 
 // Modifie le titre

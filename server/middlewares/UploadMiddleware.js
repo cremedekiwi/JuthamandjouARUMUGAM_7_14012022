@@ -1,5 +1,7 @@
 const multer = require('multer')
 const { Posts } = require('../models')
+const axios = require('axios')
+require('dotenv').config()
 
 const multerConfig = multer.diskStorage({
     destination: (req, file, callback) => {
@@ -26,15 +28,29 @@ const upload = multer({
 
 exports.uploadImage = upload.single('photo')
 
-exports.upload = async (req, res, next) => {
-    const {post} = await require('../routes/Posts')
-    console.log("middleware", post)
-    
-    
-    if (post && req.file) {
-        const { filename } = req.file
-        await Posts.update({ imageUrl: filename }, { where: { id: post } })
-    }
+
+exports.upload = (req, res, next) => {
+    // const { post } = require('../routes/Posts')
+    // console.log("Middle : ", post)
+
+    // if (post && req.file) {
+    //     const { filename } = req.file
+    //     await Posts.update({ imageUrl: filename }, { where: { id: post } })
+    // }
+
+    axios
+        .get('http://localhost:3001/posts', {
+            headers: { accessToken: `${process.env.TOKEN}`},
+        })
+        .then((response) => {
+            id = response.data.listOfPosts.length
+            console.log("Middle : ", id)
+            
+                if (id && req.file) {
+                    const { filename } = req.file
+                    Posts.update({ imageUrl: filename }, { where: { id: id } })
+                }
+            })
     
     res.status(200).json()
 }

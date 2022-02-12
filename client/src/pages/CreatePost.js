@@ -46,8 +46,8 @@ function CreatePost() {
 				headers: { accessToken: localStorage.getItem('accessToken') }, // accessToken contient username
 			})
 			.then((response) => {
-				// history.push('/') // Redirige vers la page d'accueil
-				console.log(response)
+				history.push('/') // Redirige vers la page d'accueil
+				// console.log(response)
 			})
 			.catch((err) => {
 				console.log('err', err);
@@ -57,7 +57,7 @@ function CreatePost() {
 		axios
 			.put('http://localhost:3001/posts', formData, config) 
 			.then((response) => {
-				console.log(response)
+				// console.log(response)
 			})
 			.catch((err) => {
 				console.log('err', err);
