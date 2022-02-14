@@ -43,7 +43,7 @@ exports.upload = (req, res, next) => {
             headers: { accessToken: `${process.env.TOKEN}`},
         })
         .then((response) => {
-            id = response.data.listOfPosts.length
+            id = response.data.listOfPosts.at(0).id // Récupère l'id du premier élément du tableau
             console.log("Middle : ", id)
             
                 if (id && req.file) {

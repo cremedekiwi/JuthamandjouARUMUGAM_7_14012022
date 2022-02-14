@@ -47,6 +47,7 @@ function CreatePost() {
 			})
 			.then((response) => {
 				history.push('/') // Redirige vers la page d'accueil
+				window.location.reload()
 				// console.log(response)
 			})
 			.catch((err) => {

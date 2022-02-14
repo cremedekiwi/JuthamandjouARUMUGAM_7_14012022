@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
 					`${process.env.SECRET}` // Secret pour protéger son token
 				)
 				// Si c'est OK, envoi le token avec l'accessToken, l'username et l'id
-				res.json({ token: accessToken, username: username, id: user.id })
+				res.json({ token: accessToken, username: username, id: user.id, isAdmin: user.isAdmin })
 			} catch (error) {
 				console.log(error)
 			}
@@ -52,7 +52,13 @@ router.post('/login', async (req, res) => {
 })
 
 // Vérifie si l'utilisateur est auth ou non
-router.get('/verify', validateToken, (req, res) => {
+router.get('/verify', validateToken, async (req, res) => {
+	const { username } = req.user
+
+	const user = await Users.findOne({ where: { username: username } })
+
+	req.user.isAdmin = user.isAdmin // Ajoute isAdmin 
+
 	res.json(req.user) // Retourne si c'est valide ou non
 })
 

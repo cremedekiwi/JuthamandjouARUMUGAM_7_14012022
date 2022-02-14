@@ -149,7 +149,7 @@ function Post() {
 						className="title"
 						onClick={() => {
 							// Uniquement la personne qui a crée le post peut le titre
-							if (authState.username === postObject.username) {
+							if ((authState.username === postObject.username)  || (authState.isAdmin === true)) {
 								editPost('title')
 							}
 						}}
@@ -161,7 +161,7 @@ function Post() {
 						className="body"
 						onClick={() => {
 							// Uniquement la personne qui a crée le post peut modifier le post
-							if (authState.username === postObject.username) {
+							if ((authState.username === postObject.username)  || (authState.isAdmin === true)) {
 								editPost('body')
 							}
 						}}
@@ -172,8 +172,9 @@ function Post() {
 					{/* Username & like */}
 					<div className="footer">
 						<div className="username">{postObject.username}</div>
+						{/* {console.log(authState)} */}
 						<div className="buttons">
-							{authState.username === postObject.username && (
+							{((authState.username === postObject.username) || (authState.isAdmin === true)) && (
 								<DeleteIcon
 									className="delete"
 									onClick={() => {
@@ -214,7 +215,7 @@ function Post() {
 								</div>
 								<div>
 									{/* Affiche l'icon delete si username de authState égal celui qui l'a écrit */}
-									{authState.username === comment.username && (
+									{((authState.username === comment.username) || (authState.isAdmin === true)) && (
 										<DeleteIcon
 											className="delete"
 											onClick={() => {

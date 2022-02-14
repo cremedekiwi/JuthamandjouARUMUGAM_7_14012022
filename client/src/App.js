@@ -20,6 +20,7 @@ function App() {
 		username: '',
 		id: 0,
 		status: false,
+		isAdmin: false,
 	})
 
 	// Render quand on arrive sur la page
@@ -42,16 +43,18 @@ function App() {
 						username: response.data.username,
 						id: response.data.id,
 						status: true,
+						isAdmin: response.data.isAdmin,
 					})
 				}
 			})
+			// console.log(authState)
 	// eslint-disable-next-line
 	}, [])
 
 	// Fonction se déconnecter, supprime accessToken du localStorage, met à jour authState à false, et recharge la page
 	const logout = () => {
 		localStorage.removeItem('accessToken')
-		setAuthState({ username: '', id: 0, status: false })
+		setAuthState({ username: '', id: 0, status: false, isAdmin: false })
 		window.location.reload()
 	}
 

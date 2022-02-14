@@ -36,7 +36,7 @@ function Profile() {
 			})
 			.then(() => {
 				localStorage.removeItem('accessToken')
-				setAuthState({ username: '', id: 0, status: false })
+				setAuthState({ username: '', id: 0, status: false, isAdmin: false })
 				alert('Compte supprimé')
 				history.push('/login')
 			})

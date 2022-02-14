@@ -32,11 +32,13 @@ function Login() {
 					username: response.data.username,
 					id: response.data.id,
 					status: true,
+					isAdmin: response.data.isAdmin,
 				})
 				history.push('/') // Redirige vers la page des posts
 			}
 		})
 	}
+	
 	return (
 		<div className="centerVertical">
 			<Formik initialValues={initialValues} onSubmit={login}>
