@@ -83,6 +83,7 @@ function Profile() {
 								}}
 							>
 								{value.postText}
+								<img src={`../${value.imageUrl}`} className="imagePost" alt="" />
 							</div>
 							<div className="footer">
 								<div className="username">{value.username}</div>

@@ -1,0 +1,49 @@
+/*  */
+/* GENERAL */
+/*  */
+
+.App {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #18191a;
+    color: #e4e6eb;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.toTheLine {
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+}
+
+.logout,
+.post,
+button {
+	cursor: pointer;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Enlève la sélection pointillé sur Firefox */
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+.centerVertical {
+	display: flex;
+	align-items: center;
+	height: 90vh;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from 'react-router-dom'
 
@@ -6,6 +6,12 @@ function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   let history = useHistory()
+
+  useEffect(() => {
+		if (!localStorage.getItem('accessToken')) {
+			history.push('/login')
+		}
+  }, [history])
 
   const changePassword = () => {
     axios
