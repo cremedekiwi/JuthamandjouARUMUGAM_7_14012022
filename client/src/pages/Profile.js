@@ -56,7 +56,7 @@ function Profile() {
 								history.push('/changepassword')
 							}}
 						>
-							Changer le mot de passe
+							Changer le MDP
 						</button>
 
 						<button
@@ -83,7 +83,7 @@ function Profile() {
 								}}
 							>
 								{value.postText}
-								<img src={`../${value.imageUrl}`} className="imagePost" alt="" />
+								{value.imageUrl && <img src={`../${value.imageUrl}`} className="imagePost" alt="" />}
 							</div>
 							<div className="footer">
 								<div className="username">{value.username}</div>

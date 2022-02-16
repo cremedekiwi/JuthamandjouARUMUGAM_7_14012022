@@ -49,7 +49,7 @@ router.post('/', validateToken, async (req, res) => {
 		.then((result) => {
 			post.postId = result.id // Récupère postId lors de la création du post
 			console.log("Route : ", post.postId)
-			module.exports.post = post.postId
+			// module.exports.post = post.postId
 		})
 		res.json(post) // Envoi la réponse
 })	

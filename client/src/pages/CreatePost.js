@@ -31,12 +31,12 @@ function CreatePost() {
 
 	// Envoi les données du formulaire, data contient le body
 	const onSubmit = (data) => {
-		const formData = new FormData()
-		formData.append('photo', file)
+		const formData = new FormData() // Les données de l'image sont contenus dans formData
+		formData.append('photo', file) // On ajoute le nom du fichier
 		const config = {
 			headers: {
 			accessToken: localStorage.getItem('accessToken'),
-			'content-type': 'multipart/form-data',
+			'content-type': 'multipart/form-data', // Type fichier, permet d'envoyer des images
 			}
 		}
 
@@ -48,17 +48,17 @@ function CreatePost() {
 			.then((response) => {
 				history.push('/') // Redirige vers la page d'accueil
 				window.location.reload()
-				// console.log(response)
+				console.log(response)
 			})
 			.catch((err) => {
 				console.log('err', err);
 			})
 
-		// Image
+		// Image, met à jour le post avec l'image
 		axios
 			.put('http://localhost:3001/posts', formData, config) 
 			.then((response) => {
-				// console.log(response)
+				console.log(response)
 			})
 			.catch((err) => {
 				console.log('err', err);
@@ -67,7 +67,7 @@ function CreatePost() {
 
 
 	const onInputChange = (e) => {
-		setFile(e.target.files[0])
+		setFile(e.target.files[0]) // Met à jour le state avec le nom du fichier
 	}
 
 	return (
@@ -101,10 +101,9 @@ function CreatePost() {
 						name="postText"
 						placeholder="Message"
 					/>
-					<input type='file' name='photo' onChange={onInputChange} />
+					{/* input parcourir qui permet d'envoyer la photo au back */}
+					<input type='file' name='photo' onChange={onInputChange} /> 
 					<button type="submit">Créer</button>
-					
-					{/* {postId && imageUrl && console.log(postId, imageUrl)} */}
 				</Form>
 			</Formik>
 		</div>

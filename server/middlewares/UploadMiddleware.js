@@ -1,32 +1,37 @@
-const multer = require('multer')
+const multer = require('multer') // Import de multer, qui gère les images
 const { Posts } = require('../models')
-const axios = require('axios')
-require('dotenv').config()
+const axios = require('axios') // Pour récupérer le bon postId
+require('dotenv').config() // Pour cacher le token
 
+// Destination et nom du fichier
 const multerConfig = multer.diskStorage({
+    // Où le fichier sera enregistrer
     destination: (req, file, callback) => {
         callback(null, '../client/public/')    
     },
+    // Le nom du fichier
     filename: (req, file, callback) => {
-        const ext = file.mimetype.split('/')[1]
-        callback(null, `image-${Date.now()}.${ext}`)
+        const ext = file.mimetype.split('/')[1] // On récupère l'extension dans file.mimetype, deuxième élément après le slash
+        callback(null, `image-${Date.now()}.${ext}`) // On crée le nom du fichier : image-date.extension
     }
 })
 
+// Vérifie si c'est une image
 const isImage = (req, file, callback) => {
-    if(file.mimetype.startsWith('image')) {
+    if(file.mimetype.startsWith('image')) { // Vérifie si le mimetype commence avec image
         callback(null, true)
     } else {
         callback(new Error('Only Image is Allowed..'))
     }
 }
 
+// Configuration de Multer
 const upload = multer({
     storage: multerConfig,
     fileFilter: isImage,
 })
 
-exports.uploadImage = upload.single('photo')
+exports.uploadImage = upload.single('photo') // Pour envoyer une seule image, 'photo' doit être indiqué en front
 
 
 exports.upload = (req, res, next) => {
@@ -38,6 +43,7 @@ exports.upload = (req, res, next) => {
     //     await Posts.update({ imageUrl: filename }, { where: { id: post } })
     // }
 
+    // On utilise axios pour récupérer le dernier postId
     axios
         .get('http://localhost:3001/posts', {
             headers: { accessToken: `${process.env.TOKEN}`},
@@ -47,8 +53,8 @@ exports.upload = (req, res, next) => {
             console.log("Middle : ", id)
             
                 if (id && req.file) {
-                    const { filename } = req.file
-                    Posts.update({ imageUrl: filename }, { where: { id: id } })
+                    const { filename } = req.file // Récupère le nom du fichier
+                    Posts.update({ imageUrl: filename }, { where: { id: id } }) // Met à jour la BDD avec imageUrl
                 }
             })
     

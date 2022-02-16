@@ -1,73 +1,76 @@
 /* POST */
 
 .post {
-	width: 500px;
-	min-height: 400px;
+	width: 90vw;
+	height: 50vh;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	margin-top: 25px;
 	margin-bottom: 25px;
 	background-color: #242526;
+
+	@media screen and (min-width: 768px) {
+		width: 95vw;
+		height: 60vh;
+	}
+
+	@media screen and (min-width: 992px) {
+		width: 600px;
+		height: 500px;
+	}
+
+	.title {
+		flex: 15%;
+		border-radius: 10px 10px 0 0;
+		background-color: #3a3b3c;
+		display: grid;
+		place-content: center;
+	}
+
+	.body {
+		flex: 70%;
+		display: grid;
+		place-content: center;
+		padding: 20px;
+	}
+	
+	.footer {
+		flex: 15%;
+		display: flex;
+		align-items: center;
+		padding-left: 15px;
+		background-color: #3a3b3c;
+		color: white;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+
+		.username {
+			flex: 50%;
+		}
+		.buttons {
+			flex: 50%;
+			display: flex;
+			justify-content: flex-end;
+			padding-right: 10px;
+			align-items: center;
+		}
+	}
 }
 
 .imagePost {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	width: 100%;
-}
+	height: 25vh;
 
-@media (max-width: 768px) {
-    .post {
-        width: 90vw;
-        height: 50vh;
-    }
-}
+	@media screen and (min-width: 767px) {
+		height: 35vh;
+	}
 
-@media (max-width: 992px) {
-    .post {
-        width: 94vw;
-        height: 50vh;
-    }
-}
-
-.post .title {
-	min-height: 50px;
-	border-radius: 10px 10px 0 0;
-	flex: 15%;
-	background-color: #3a3b3c;
-	display: grid;
-	place-content: center;
-}
-
-.post .body {
-	flex: 70%;
-	display: grid;
-	place-content: center;
-	padding: 20px;
-}
-
-.post .footer {
-	min-height: 50px;
-	flex: 15%;
-	display: flex;
-	align-items: center;
-	padding-left: 15px;
-	background-color: #3a3b3c;
-	color: white;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-
-.footer .username {
-	flex: 50%;
-}
-.footer .buttons {
-	flex: 50%;
-	display: flex;
-	justify-content: flex-end;
-	padding-right: 10px;
-	align-items: center;
+	@media screen and (min-width: 992px) {
+		height: 280px;
+	}
 }
 
 .likeBttn {
@@ -91,87 +94,91 @@
 /* INDIVIDUAL POST */
 .postPage {
 	display: flex;
-	flex-direction: row;
-	width: 100%;
-	height: 100%;
+	flex-direction: column;
+	align-items: center;
+
+	@media screen and (min-width: 767px) {
+		
+	}
+
+	@media (min-width: 992px) {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: 100%;
+	}
 }
 
 .leftSide {
-	flex: 50%;
-	height: calc(100vh - 70px);
-	display: grid;
-	place-items: center;
+	flex: auto;
+	height: auto;
+	display: flex;
+	place-items: auto;
+	
+	@media screen and (min-width: 767px) {
+		
+	}
+
+	@media (min-width: 992px) {
+		flex: 50%;
+		height: calc(100vh - 70px);
+		display: grid;
+		place-items: center;
+	}
 }
 
 .rightSide {
-	flex: 50%;
-	height: calc(100vh - 70px);
-	display: grid;
-	place-items: center;
+	flex: auto;
+	height: auto;
 	display: flex;
+	place-items: auto;
 	flex-direction: column;
-}
 
-@media (max-width: 992px) {
-    .postPage {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+	@media screen and (min-width: 767px) {
+		
+	}
 
-    .leftSide {
-        flex: auto;
-        height: auto;
-        display: flex;
-        place-items: auto;
-    }
-    
-    .rightSide {
-        flex: auto;
-        height: auto;
-        display: flex;
-        place-items: auto;
-        flex-direction: column;
-    }
-}
+	@media (min-width: 992px) {
+		flex: 50%;
+		height: calc(100vh - 30vh);
+		display: grid;
+		place-items: center;
+		display: flex;
+		flex-direction: column;
+	}
 
-.rightSide .addCommentContainer {
-	margin-top: 70px;
-}
+	.addCommentContainer {
+		display: flex;
+		margin-top: 0px;
 
-.addCommentContainer input,
-button {
-	width: 450px;
-	height: 50px;
-	border-radius: 8px;
-	border: none;
-	background-color: #3a3b3c;
-	color: white;
-    margin: 10px;
-}
+		@media screen and (min-width: 767px) {
+			display: flex;
+			margin-top: 0px;
+		}
 
-@media (max-width: 768px) {
-    .rightSide .addCommentContainer {
-        display: flex;
-        margin-top: 0px;
-    }
+		@media (min-width: 992px) {
+			margin-top: 70px;
+		}
 
-    .addCommentContainer input, button {
-        width: 60vw;
-        margin: 3px;
-    }
-}
+		input, button {
+			height: 50px;
+			width: 43vw;
+			margin: 4px;
+			border-radius: 8px;
+			border: none;
+			background-color: #3a3b3c;
+			color: white;
 
-@media (max-width: 992px) {
-    .rightSide .addCommentContainer {
-        display: flex;
-        margin-top: 0px;
-    }
+			@media screen and (min-width: 768px) {
+				width: 44vw;
+			}
 
-    .addCommentContainer input, button {
-        width: 81vw;
-        margin: 3px;
-    }
+			@media screen and (min-width: 992px) {
+				width: 300px;
+				
+			}
+		}
+	}
 }
 
 .addCommentContainer button {
@@ -194,24 +201,20 @@ button {
 }
 
 .listOfComments .comment {
-	width: 70%;
+	width: 83vw;
 	height: auto;
 	padding: 10px;
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	margin-top: 20px;
-}
 
-@media (max-width: 768px) {
-    .listOfComments .comment {
-        width: 83vw;
-    }
-}
-
-@media (max-width: 992px) {
-    .listOfComments .comment {
-        width: 91vw;
-    }
+	@media screen and (min-width: 768px) {
+		width: 87vw;
+	}
+	
+	@media screen and (min-width: 992px) {
+		width: 592px;
+	}
 }
 
 .comment {
@@ -225,34 +228,31 @@ button {
 }
 
 #individual {
-	min-height: 500px;
-  	width: 600px;
+	width: 90vw;
+	height: 50vh;
+
+	@media screen and (min-width: 768px) {
+		width: 90vw;
+		height: 50vh;
+	}
+	
+	@media screen and (min-width: 992px) {
+		height: 500px;
+  		width: 600px;
+	}
+
+	.imagePost {
+		height: 160px;
+
+		@media screen and (min-width: 768px) {
+			height: 290px;
+		}
+		
+		@media screen and (min-width: 992px) {
+			width: 95%;
+			height: 280px;
+			margin-left: 2.5%;
+		}
+	}
 }
 
-@media (max-width: 768px) {
-    #individual {
-        width: 90vw;
-        height: 50vh;
-    }
-}
-
-@media (max-width: 992px) {
-    #individual {
-        width: 94vw;
-        height: 50vh;
-    }
-}
-
-#individual .imagePost {
-	width: 95%;
-	margin-left: 2.5%;
-}
-
-#individual .title,
-#individual .footer {
-	font-size: 20px;
-}
-
-#individual .body {
-	font-size: 15px;
-}
