@@ -5,8 +5,8 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 
 // Like un post
 router.post("/", validateToken, async (req, res) => {
-  const { PostId } = req.body; // Récupère PostId
-  const UserId = req.user.id; // Récupère UserId depuis le middleware validateToken
+  const { PostId } = req.body;
+  const UserId = req.user.id;
 
   // Vérifie si la ligne existe dans la table
   const found = await Likes.findOne({

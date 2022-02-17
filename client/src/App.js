@@ -1,5 +1,6 @@
-import './App.css'
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import './App.css' // Import du CSS
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom' // Import des fonctions de routing
+// Imports des pages
 import Home from './pages/Home'
 import CreatePost from './pages/CreatePost'
 import Post from './pages/Post'
@@ -9,23 +10,20 @@ import PageNotFound from './pages/PageNotFound'
 import Profile from './pages/Profile'
 import ChangePassword from './pages/ChangePassword'
 import { AuthContext } from './helpers/AuthContext'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import LogoutIcon from '@mui/icons-material/Logout'
-import logo from './logo.png'
+import { useState, useEffect } from 'react' // Import des states et de useEffect
+import axios from 'axios' // Import Axios
+import LogoutIcon from '@mui/icons-material/Logout' // Import l'icon logout
+import logo from './logo.png' // Import le logo
 
 function App() {
-	// Permet de savoir si on est connecté ou non, ce state contient username, id et le status
-	const [authState, setAuthState] = useState({
+	const [authState, setAuthState] = useState({ // Permet de savoir si on est connecté ou non, ce state contient username, id et le status
 		username: '',
 		id: 0,
 		status: false,
 		isAdmin: false,
 	})
 
-	// Render quand on arrive sur la page
 	useEffect(() => {
-		// Récupère le token après s'être connecté
 		axios
 			.get('http://localhost:3001/auth/verify', {
 				headers: {
@@ -33,12 +31,10 @@ function App() {
 				},
 			})
 			.then((response) => {
-				// Si user pas authentifié ou avec un token non valide
-				if (response.data.error) {
+				if (response.data.error) { // Si user pas authentifié ou avec un token non valide
 					setAuthState({ ...authState, status: false })
 				}
-				// Sinon user valide, il est authentifié avec username, id et status true
-				else {
+				else { // Sinon user valide, il est authentifié avec username, id et status true
 					setAuthState({
 						username: response.data.username,
 						id: response.data.id,
@@ -47,15 +43,14 @@ function App() {
 					})
 				}
 			})
-			// console.log(authState)
 	// eslint-disable-next-line
 	}, [])
 
-	// Fonction se déconnecter, supprime accessToken du localStorage, met à jour authState à false, et recharge la page
+	// Fonction se déconnecter
 	const logout = () => {
-		localStorage.removeItem('accessToken')
-		setAuthState({ username: '', id: 0, status: false, isAdmin: false })
-		window.location.reload()
+		localStorage.removeItem('accessToken') // Supprime accessToken du localStorage
+		setAuthState({ username: '', id: 0, status: false, isAdmin: false }) // Met à jour le status d'authState à false
+		window.location.reload() // Recharge la page
 	}
 
 	return (

@@ -35,10 +35,15 @@ function Profile() {
 				headers: { accessToken: localStorage.getItem('accessToken') },
 			})
 			.then(() => {
-				localStorage.removeItem('accessToken')
-				setAuthState({ username: '', id: 0, status: false, isAdmin: false })
 				alert('Compte supprimé')
-				history.push('/login')
+
+				if (authState.id != 1) {
+					localStorage.removeItem('accessToken')
+					setAuthState({ username: '', id: 0, status: false, isAdmin: false })
+					history.push('/login')
+				} else {
+					history.push('/')
+				}
 			})
 	}
 
@@ -68,6 +73,15 @@ function Profile() {
 						</button>
 					</>
 					
+				)}
+				{(authState.isAdmin === true) && (
+					<button
+					onClick={() => {
+						deleteAccount(id)
+					}}
+					>
+						Supprimer le compte
+					</button>
 				)}
 			</div>
 			<div className="listOfPosts">

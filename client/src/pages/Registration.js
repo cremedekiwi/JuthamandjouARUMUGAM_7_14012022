@@ -11,8 +11,8 @@ function Registration() {
 	}
 
 	const validationSchema = Yup.object().shape({
-		username: Yup.string().min(3).max(15).required('Pseudo requis'),
-		password: Yup.string().min(4).max(20).required('Mot de passe requis'),
+		username: Yup.string().min(3, '3 caractères minimum').max(15, '15 caractères minimum').required('Pseudo requis'),
+		password: Yup.string().min(4, '4 caractères minimun').max(20, '20 caractères minimum').required('Mot de passe requis'),
 	})
 
 	let history = useHistory()

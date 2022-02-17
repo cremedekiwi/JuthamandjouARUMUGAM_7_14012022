@@ -3,36 +3,36 @@ const router = express.Router()
 const { Comments } = require('../models')
 const { validateToken } = require('../middlewares/AuthMiddleware') // Importe le middleware pour vérifier si le token est valide
 
-// Affiche les commentaires
+// Affiche
 router.get('/:postId', async (req, res) => {
-	const postId = req.params.postId // Récupère l'id du post
-	// Affiche tout les commentaires via l'id du post
+	const postId = req.params.postId
+	// Affiche tous les commentaires via postId
 	const comments = await Comments.findAll({
 		where: { PostId: postId }
 	})
 	res.json(comments)
 })
 
-// Crée un commentaire
+// Créé
 router.post('/', validateToken, async (req, res) => {
-	const comment = req.body // Récupère le commentaire
-	const username = req.user.username // Récupère username depuis la variable de auth
+	const comment = req.body
+	const username = req.user.username
 	comment.username = username // Rajoute à comment : username
 	const newComment = await Comments.create(comment) // Crée le commentaire
-	res.json(newComment) // Retourne le nouveau commentaire
+	res.json(newComment)
 })
 
-// Supprime un commentaire avec son id
+// Supprime
 router.delete('/:commentId', validateToken, async (req, res) => {
-	const commentId = req.params.commentId // Récupère l'id du commentaire
+	const commentId = req.params.commentId
 
-	await Comments.destroy({
+	await Comments.destroy({ // Supprime un commentaire avec commentId
 		where: {
 			id: commentId,
 		},
 	})
 
-	res.json('Supprimé') // Envoi une réponse, pour pouvoir finir la requête
+	res.json('Supprimé')
 })
 
 module.exports = router

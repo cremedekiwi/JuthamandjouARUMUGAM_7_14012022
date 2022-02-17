@@ -1,6 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-  // Crée la table Users
-  const Users = sequelize.define("Users", {
+module.exports = (sequelize, DataTypes) => { // Export du modèle
+  const Users = sequelize.define("Users", { // Crée la table Users
     username: {
       type: DataTypes.STRING,
       allowNull: false,
