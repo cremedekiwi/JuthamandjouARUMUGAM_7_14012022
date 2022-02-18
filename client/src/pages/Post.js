@@ -192,7 +192,7 @@ function Post() {
 				<div className="addCommentContainer">
 					<input
 						type="text"
-						placeholder="Comment..."
+						placeholder="Votre commentaire..."
 						autoComplete="off"
 						// Valeur de l'input par défaut
 						value={newComment}

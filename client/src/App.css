@@ -400,6 +400,7 @@ a {
 }
 
 .rightSide .addCommentContainer input, .rightSide .addCommentContainer button {
+  padding-left: 10px;
   height: 50px;
   width: 43vw;
   margin: 4px;
@@ -602,8 +603,20 @@ span {
 
 /* PROFILE */
 .basicInfo button {
-  width: 42%;
+  width: 44vw;
   margin: 3px;
+}
+
+@media screen and (min-width: 768px) {
+  .basicInfo button {
+    width: 47vw;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .basicInfo button {
+    width: 49%;
+  }
 }
 
 /* Changer MDP */

@@ -32,7 +32,6 @@ function Registration() {
 				validationSchema={validationSchema}
 			>
 				<Form className="formContainer">
-					<label><h1>S'enregistrer</h1></label>
 					<ErrorMessage name="username" component="span" />
 					<Field
 						autoComplete="off"
@@ -50,7 +49,7 @@ function Registration() {
 						placeholder="Mot de passe"
 					/>
 
-					<button type="submit">Créer nouveau compte</button>
+					<button type="submit">Inscription</button>
 				</Form>
 			</Formik>
 		</div>

@@ -31,6 +31,10 @@ function Home() {
 							return like.PostId
 						})
 					)
+					// console.log(response)
+				})
+				.catch((err) => {
+					console.log('err', err);
 				})
 		}
 	}, [history])

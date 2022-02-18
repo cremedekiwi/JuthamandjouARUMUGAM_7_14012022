@@ -68,8 +68,8 @@ function App() {
 									<Link to="/login">
 										<img src={logo} alt={'logo'} className="logo" />
 									</Link>
-									<Link to="/login"> Se connecter</Link>
-									<Link to="/registration"> Créer nouveau compte</Link>
+									<Link to="/login"> Connexion</Link>
+									<Link to="/registration"> Inscription</Link>
 								</>
 							) :
 							// Sinon affiche le logo et createpost
@@ -78,7 +78,8 @@ function App() {
 									<Link to="/">
 										<img src={logo} alt={'logo'} className="logo" />
 									</Link>
-									<Link to="/createpost"> Créer une publication</Link>
+									{/* {console.log(window.location)} */}
+									<Link to="/createpost">Publier</Link>
 								</>
 							)}
 						</div>

@@ -43,7 +43,6 @@ function Login() {
 		<div className="centerVertical">
 			<Formik initialValues={initialValues} onSubmit={login}>
 				<Form className="formContainer">
-					<label><h1>Se connecter</h1></label>
 					<ErrorMessage name="username" component="span" />
 					<input
 						type="text"
@@ -65,7 +64,7 @@ function Login() {
 						}}
 					/>
 
-					<button type="submit">Login</button>
+					<button type="submit">Connexion</button>
 				</Form>
 			</Formik>
 		</div>
