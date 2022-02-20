@@ -1,5 +1,4 @@
-const multer = require('multer') // Import de multer, qui gère les images
-require('dotenv').config() // Pour cacher le token
+const multer = require('multer') // Importe multer, qui gère les images
 
 // Destination et nom du fichier
 const multerConfig = multer.diskStorage({

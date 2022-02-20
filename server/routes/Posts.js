@@ -24,7 +24,7 @@ router.get('/', validateToken, async (req, res) => {
 
 // Affiche les posts individuellement
 router.get('/byId/:id', async (req, res) => {
-	const id = req.params.id // Récupère l'id de l'url
+	const id = req.params.id
 	const post = await Posts.findByPk(id) // Récupère le post via la clé primaire id
 	res.json(post)
 })
@@ -32,7 +32,7 @@ router.get('/byId/:id', async (req, res) => {
 // Affiche les posts d'un user
 router.get('/byUserId/:id', async (req, res) => {
 	const id = req.params.id
-	// Cherche les posts de l'utilisateur 
+	// Cherche tous les posts de l'utilisateur en indiquant son id
 	const listOfPosts = await Posts.findAll({
 		where: { UserId: id },
 		include: [Likes],
@@ -41,12 +41,20 @@ router.get('/byUserId/:id', async (req, res) => {
 	res.json(listOfPosts)
 })
 
-// Crée le post
+// Crée le post (texte et/ou image)
 router.post('/', validateToken, uploadImage, async (req, res) => {
 	post = req.body // Récupère les données du formulaire : title et postText
+	// On affecte username et UserId avec les données de validateToken
 	post.username = req.user.username
 	post.UserId = req.user.id
-	post.imageUrl = req.file.filename
+	// On vérifie si req.file existe (upload d'image) 
+	if(!req.file) {
+		post.imageUrl = null
+	}
+	// Si c'est le cas
+	else {
+		post.imageUrl = req.file.filename // On affecte imageUrl avec les données de uploadImage
+	}
 	await Posts.create(post) // Crée le post
 	res.json(post) // Envoi la réponse
 })	
@@ -58,10 +66,10 @@ router.put('/title', validateToken, async (req, res) => {
 	res.json(newTitle)
 })
 
-// Modifie le corps du texte
+// Modifie le corps du texte : même principe
 router.put('/postText', validateToken, async (req, res) => {
-	const { newText, id } = req.body // Récupère newText et id du body
-	await Posts.update({ postText: newText }, { where: { id: id } }) // Met à jour postText
+	const { newText, id } = req.body
+	await Posts.update({ postText: newText }, { where: { id: id } })
 	res.json(newText)
 })
 

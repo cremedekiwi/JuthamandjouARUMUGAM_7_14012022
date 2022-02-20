@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => { // Export du modèle
-  const Users = sequelize.define("Users", { // Crée la table Users
+module.exports = (sequelize, DataTypes) => { // Exporte le modèle
+  const Users = sequelize.define("Users", { // Crée la table Users, avec les colonnes username, password, et isAdmin
     username: {
       type: DataTypes.STRING,
       allowNull: false,

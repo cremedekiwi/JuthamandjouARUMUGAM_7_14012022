@@ -15,10 +15,10 @@ function ChangePassword() {
 
   const changePassword = () => {
     axios
-      .put(
+      .put( // La fonction axios.put permet la modification 
         "http://localhost:3001/auth/changepassword",
         {
-          // Body
+          // Body ancien et nouveau password
           oldPassword: oldPassword,
           newPassword: newPassword,
         },
@@ -30,10 +30,10 @@ function ChangePassword() {
       )
       .then((response) => {
         if (response.data.error) {
-          alert(response.data.error);
+          alert(response.data.error); // Alert si erreur
         } else {
           alert("Mot de passe changé");
-          history.push('/')
+          history.push('/') // Si c'est ok, on redirige vers la page d'accueil
         }
       });
   };

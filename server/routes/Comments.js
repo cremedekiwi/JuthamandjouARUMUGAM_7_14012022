@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const { Comments } = require('../models')
-const { validateToken } = require('../middlewares/AuthMiddleware') // Importe le middleware pour vérifier si le token est valide
+const { validateToken } = require('../middlewares/AuthMiddleware')
 
 // Affiche
 router.get('/:postId', async (req, res) => {
 	const postId = req.params.postId
-	// Affiche tous les commentaires via postId
+	// Affiche tous les commentaires grâce à postId
 	const comments = await Comments.findAll({
 		where: { PostId: postId }
 	})

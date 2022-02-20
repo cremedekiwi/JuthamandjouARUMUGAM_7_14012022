@@ -27,24 +27,23 @@ function CreatePost() {
 		postText: Yup.string().required('Message requis'),
 	})
 
-	const [file, setFile] = useState(null);
-	// const [postid, setPostid] = useState([]);
+	const [file, setFile] = useState(null); // State du nom du fichier
 
-	// Envoi les données du formulaire, data contient le body
+	// Envoi les données du formulaire, data contient le titre et le corps du texte
 	const onSubmit = (data) => {
 		const formData = new FormData() // Les données de l'image sont contenus dans formData
 		formData.append('photo', file) // On ajoute le nom du fichier
-		formData.append('title', data.title)
-		formData.append('postText', data.postText)
+		formData.append('title', data.title) // Le titre
+		formData.append('postText', data.postText) // Et le corps du texte
 
 		// Titre et corps du texte
 		axios
 			.post('http://localhost:3001/posts', formData, {
-				headers: { accessToken: localStorage.getItem('accessToken') }, // accessToken contient username
-				'content-type': 'multipart/form-data',
+				headers: { accessToken: localStorage.getItem('accessToken') },
+				'content-type': 'multipart/form-data', // multipart/form-data essentiel pour gérer les images
 			})
 			.then((response) => {
-				history.push('/') // Redirige vers la page d'accueil
+				history.push('/') // Si c'est OK redirige vers la page d'accueil
 			})
 			.catch((err) => {
 				console.log('err', err);

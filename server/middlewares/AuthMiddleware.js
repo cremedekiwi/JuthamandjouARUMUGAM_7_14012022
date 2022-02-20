@@ -1,7 +1,7 @@
-const { verify } = require("jsonwebtoken"); // Permet de vérifier un token
+const { verify } = require("jsonwebtoken");
 require('dotenv').config() // dotenv contient les données sensible
 
-// Fonction qui se lance avant une requête, vérfie si on continue ou non
+// Un middleware est une fonction qui se lance avant une requête, celle-ci vérifie le token et décide si on continue ou non
 const validateToken = async (req, res, next) => {
   const accessToken = req.header("accessToken"); // Récupère accessToken depuis header
 
@@ -10,7 +10,7 @@ const validateToken = async (req, res, next) => {
 
   // Utilise verify de jsonwebtoken pour voir si le token est valide
   try {
-    const validToken = verify(accessToken, `${process.env.SECRET}`); // Vérifie le token
+    const validToken = verify(accessToken, `${process.env.SECRET}`); // Il prend deux paramètres : le token et la chaîne de caractère secrète
     req.user = validToken; // Affecte les informations de validToken à req.user (username + id)
 
     // Si validToken est true, autorise la poursuite de la requête

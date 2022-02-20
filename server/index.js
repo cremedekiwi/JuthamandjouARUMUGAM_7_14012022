@@ -1,13 +1,13 @@
-const express = require("express"); // Import d'express
+const express = require("express"); // Importe d'express
 const app = express(); // Crée une const app pour pouvoir utiliser les fonctions d'express
-const cors = require("cors"); // Import de cors
+const cors = require("cors"); // Importe de cors
 
-app.use(express.json()); // express.json transforme les requêtes en json
-app.use(cors()); // cors permet de faire des requêtes entre client et server
+app.use(express.json()); // on utilise la fonction express.json qui transforme les requêtes en json
+app.use(cors()); // qui permet d’autoriser les requêtes entre notre client et notre server
 
-const db = require("./models"); // Import des modéles
+const db = require("./models"); // Importe les modèles
 
-// Import des routes
+// Importe des routes
 const {router} = require("./routes/Posts");
 app.use("/posts", router);
 const commentsRouter = require("./routes/Comments");
@@ -17,7 +17,7 @@ app.use("/auth", usersRouter);
 const likesRouter = require("./routes/Likes");
 app.use("/likes", likesRouter);
 
-// Met à jour la BDD à chaque action
+// db contient les modèles, et on utilise sequelize.sync() pour mettre à jour notre BDD
 db.sequelize.sync().then(() => {
   // Ecoute sur le port 3001 et on affiche un message si c'est OK
   app.listen(3001, () => {

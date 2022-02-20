@@ -7,11 +7,11 @@ import { AuthContext } from '../helpers/AuthContext'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 function Post() {
-	let { id } = useParams() // Permet de récupérer l'id dans l'URL
-	const [postObject, setPostObject] = useState({}) // state du post
-	const [comments, setComments] = useState([]) // state du commentaire
+	let { id } = useParams()
+	const [postObject, setPostObject] = useState({})
+	const [comments, setComments] = useState([])
 	const [newComment, setNewComment] = useState('') // state du commentaire qu'on écrit
-	const { authState } = useContext(AuthContext) // Permet d'utiliser des variables entre les routes
+	const { authState } = useContext(AuthContext)
 
 	let history = useHistory()
 
@@ -45,7 +45,7 @@ function Post() {
 				},
 				{
 					headers: {
-						accessToken: localStorage.getItem('accessToken'), // Ajoute accessToken au header
+						accessToken: localStorage.getItem('accessToken'),
 					},
 				}
 			)
@@ -60,7 +60,7 @@ function Post() {
 						id: response.data.id,
 					}
 					setComments([...comments, commentToAdd]) // Récupère les anciens commentaire, et rajoute le nouveau
-					setNewComment('') // Réinitialise l'input à ""
+					setNewComment('') // Réinitialise l'input
 				}
 			})
 		}
@@ -70,7 +70,7 @@ function Post() {
 	const deleteComment = (id) => {
 		axios
 			.delete(`http://localhost:3001/comments/${id}`, { // On rajoute id dans la requête axios
-				headers: { accessToken: localStorage.getItem('accessToken') }, // On passe accessToken dans le header
+				headers: { accessToken: localStorage.getItem('accessToken') },
 			})
 			.then(() => {
 				// Filtre les commentaires pour récupérer ceux différent de notre id
@@ -82,7 +82,7 @@ function Post() {
 			})
 	}
 
-	// Supprime un post avec id
+	// Supprime un post avec id, même principe que pour le commentaire
 	const deletePost = (id) => {
 		axios
 			.delete(`http://localhost:3001/posts/${id}`, {
@@ -116,16 +116,13 @@ function Post() {
 					setPostObject({ ...postObject, title: newTitle }) // On garde postObject et on change uniquement title
 			}
 		}
-		// Modifie le corps du post
+		// Modifie le corps du post, même principe que pour le titre
 		else {
-			// Variable qui contient le prompt  du nouveau texte
 			let newPostText = prompt('Nouveau texte :')
-			// Empêche que le post soit null
 			if (newPostText != undefined && newPostText != "") {
 				axios.put(
 					'http://localhost:3001/posts/postText',
 					{
-						// Body
 						newText: newPostText,
 						id: id,
 					},
@@ -134,7 +131,7 @@ function Post() {
 					}
 				)
 
-					setPostObject({ ...postObject, postText: newPostText }) // On garde postObject et on change uniquement postText
+					setPostObject({ ...postObject, postText: newPostText })
 			}
 		}
 	}

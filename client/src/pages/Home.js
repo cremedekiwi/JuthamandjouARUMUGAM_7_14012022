@@ -8,7 +8,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 
 function Home() {
 	const [listOfPosts, setListOfPosts] = useState([]) // Liste des posts
-	const [likedPosts, setLikedPosts] = useState([]) // Liste des posts like
+	const [likedPosts, setLikedPosts] = useState([]) // Liste des likes
 	let history = useHistory()
 
 	useEffect(() => {
@@ -16,7 +16,7 @@ function Home() {
 		if (!localStorage.getItem('accessToken')) {
 			history.push('/login')
 		}
-		// Sinon on récupère les posts via axios
+		// Sinon on récupère les posts via axios.get
 		else {
 			axios
 				.get('http://localhost:3001/posts', {
@@ -31,7 +31,6 @@ function Home() {
 							return like.PostId
 						})
 					)
-					// console.log(response)
 				})
 				.catch((err) => {
 					console.log('err', err);
@@ -39,65 +38,64 @@ function Home() {
 		}
 	}, [history])
 
-	// Like un post, prend en paramètre postId
-	const likeAPost = (postId) => {
-		// Envoi le body avec postId, et le headers avec accessToken (pour valider avec le back)
-		axios
-			.post(
-				'http://localhost:3001/likes',
-				{ PostId: postId },
-				{ headers: { accessToken: localStorage.getItem('accessToken') } }
-			)
-			// Récupère la réponse et la met dans notre state listOfPosts
-			.then((response) => {
-				setListOfPosts(
-					// Map à travers tout nos posts
-					listOfPosts.map((post) => {
-						// Quand post.id est égal à postID (celui qu'on vient de cliquer)
-						if (post.id === postId) {
-							// Si response.data.liked est true
-							if (response.data.liked) {
-								// Return l'ancien post, on veut juste changer Likes
-								// avec l'ancien array post.Likes et un nouveau item
-								return { ...post, Likes: [...post.Likes, 0] }
-							}
-							// Sinon supprime le like du tableau
-							else {
-								// Crée une variable avec le tableau de likes
-								const likesArray = post.Likes
-								// Supprime le dernier élément avec pop
-								likesArray.pop()
-								// Return l'ancien post avec le nouveau tableau des likes
-								return { ...post, Likes: likesArray }
-							}
-						} else {
-							return post // Retourne le post sans modif
+// Like un post, prend en paramètre postId
+const likeAPost = (postId) => {
+	axios
+		.post(
+			'http://localhost:3001/likes',
+			{ PostId: postId }, // Envoi le body avec postId 
+			{ headers: { accessToken: localStorage.getItem('accessToken') } }
+		)
+		// Récupère la réponse et la met dans notre state listOfPosts
+		.then((response) => {
+			setListOfPosts(
+				// Map à travers tout nos posts
+				listOfPosts.map((post) => {
+					// Quand post.id est égal à postID (celui qu'on vient de cliquer)
+					if (post.id === postId) {
+						// Si response.data.liked est true
+						if (response.data.liked) {
+							// Return l'ancien post, on veut juste changer Likes
+							// avec l'ancien array post.Likes et un nouveau item
+							return { ...post, Likes: [...post.Likes, 0] }
 						}
+						// Sinon supprime le like du tableau
+						else {
+							// Crée une variable avec le tableau de likes
+							const likesArray = post.Likes
+							// Supprime le dernier élément avec pop
+							likesArray.pop()
+							// Return l'ancien post avec le nouveau tableau des likes
+							return { ...post, Likes: likesArray }
+						}
+					} else {
+						return post // Retourne le post sans modif
+					}
+				})
+			)
+
+			// Si likedPosts inclus postId
+			if (likedPosts.includes(postId)) {
+				// Filter likedPosts avec les id différent de postId
+				setLikedPosts(
+					likedPosts.filter((id) => {
+						return id != postId
 					})
 				)
-
-				// Si likedPosts inclus postId
-				if (likedPosts.includes(postId)) {
-					// Filter likedPosts avec les id différent de postId
-					setLikedPosts(
-						likedPosts.filter((id) => {
-							return id != postId
-						})
-					)
-				}
-				// Sinon récupérer l'ancien likedPosts; et rajouter le nouveau postId
-				else {
-					setLikedPosts([...likedPosts, postId])
-				}
-			})
-	}
+			}
+			// Sinon récupérer l'ancien likedPosts; et rajouter le nouveau postId
+			else {
+				setLikedPosts([...likedPosts, postId])
+			}
+		})
+}
 
 	return (
 		<div>
 			{/* Utilise map pour afficher chaque post du state */}
 			{listOfPosts.map((value, key) => {
 				return (
-					// utiliser key={key} pour avoir un id unique, et ne pas avoir de warning
+					// Utilise key pour avoir un id unique, et ne pas avoir de warning
 					<div key={key} className="post">
 						
 						{/* Titre */}
@@ -109,8 +107,8 @@ function Home() {
 								history.push(`/post/${value.id}`)
 							}}
 						>
-							{value.postText}
-							{value.imageUrl != null && <img src={value.imageUrl} className="imagePost" alt="" />}
+							{value.postText} {/* Corps du texte  */}
+							{value.imageUrl != null && <img src={value.imageUrl} className="imagePost" alt="" />} {/* Image s'affiche uniquement si il y a le nom dans la BDD  */}
 						</div>
 						<div className="footer">
 							{/* Username */}

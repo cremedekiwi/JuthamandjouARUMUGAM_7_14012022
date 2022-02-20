@@ -8,8 +8,8 @@ import { AuthContext } from '../helpers/AuthContext'
 function Profile() {
 	let { id } = useParams() // Récupère id de l'URL
 	let history = useHistory()
-	const [username, setUsername] = useState('') // State username
-	const [listOfPosts, setListOfPosts] = useState([]) // State listOfPosts
+	const [username, setUsername] = useState('')
+	const [listOfPosts, setListOfPosts] = useState([])
 	const { authState, setAuthState } = useContext(AuthContext)
 
 	useEffect(() => {
@@ -28,7 +28,7 @@ function Profile() {
 		}	
 	}, [history, id])
 
-	// Supprime un compte avec id
+	// Supprime un compte avec son id
 	const deleteAccount = () => {
 		axios
 			.delete(`http://localhost:3001/auth/deleteUser/${id}`, {
@@ -53,7 +53,7 @@ function Profile() {
 				{/* Username */}
 				<h1>{username} </h1>
 				{/* Affiche changer le MDP si c'est l'utilisateur du profil qui est connecté */}
-				{authState.username === username && (
+				{authState.username === username && (authState.isAdmin === false) && (
 					<>
 						<button
 							onClick={() => {
@@ -72,16 +72,29 @@ function Profile() {
 							Supprimer le compte
 						</button>
 					</>
-					
 				)}
+
 				{(authState.isAdmin === true) && (
-					<button
-					onClick={() => {
-						deleteAccount(id)
-					}}
-					>
-						Supprimer le compte
-					</button>
+					<>
+						{authState.username === username && (
+							<button
+								onClick={() => {
+									// Redirge vers la page changepassword
+									history.push('/changepassword')
+								}}
+							>
+								Changer le MDP
+							</button>
+						)}
+
+						<button
+						onClick={() => {
+							deleteAccount(id)
+						}}
+						>
+							Supprimer le compte
+						</button>
+					</>
 				)}
 			</div>
 			<div className="listOfPosts">

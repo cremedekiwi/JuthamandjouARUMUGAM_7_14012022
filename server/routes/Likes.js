@@ -15,16 +15,16 @@ router.post("/", validateToken, async (req, res) => {
 
   // Si elle n'existe pas
   if (!found) {
-    // Like : crée dans la table like, une ligne PostId et UserId
+    // On peut like = crée dans la table like, une ligne PostId et UserId
     await Likes.create({ PostId: PostId, UserId: UserId });
-    // Si liked: true
+    // liked: true
     res.json({ liked: true });
   } else {
-    // Unlike : sinon supprime de la table like PostId et UserId
+    // Sinon on Unlike : on supprime de la table like PostId et UserId
     await Likes.destroy({
       where: { PostId: PostId, UserId: UserId },
     });
-    // Sinon liked : false
+    // liked : false
     res.json({ liked: false });
   }
 });

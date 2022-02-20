@@ -1,6 +1,6 @@
-import './App.css' // Import du CSS
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom' // Import des fonctions de routing
-// Imports des pages
+import './App.css' // Importe le CSS
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom' // Importe les fonctions de routing
+// Importe les pages
 import Home from './pages/Home'
 import CreatePost from './pages/CreatePost'
 import Post from './pages/Post'
@@ -10,13 +10,13 @@ import PageNotFound from './pages/PageNotFound'
 import Profile from './pages/Profile'
 import ChangePassword from './pages/ChangePassword'
 import { AuthContext } from './helpers/AuthContext'
-import { useState, useEffect } from 'react' // Import des states et de useEffect
-import axios from 'axios' // Import Axios
-import LogoutIcon from '@mui/icons-material/Logout' // Import l'icon logout
-import logo from './logo.png' // Import le logo
+import { useState, useEffect } from 'react' // Importe useState et useEffect
+import axios from 'axios' // Importe Axios
+import LogoutIcon from '@mui/icons-material/Logout' // Importe l'icon logout
+import logo from './logo.png' // Importe le logo
 
 function App() {
-	const [authState, setAuthState] = useState({ // Permet de savoir si on est connecté ou non, ce state contient username, id et le status
+	const [authState, setAuthState] = useState({ // Permet de savoir si on est connecté ou non, ce state contient username, id, status et isAdmin
 		username: '',
 		id: 0,
 		status: false,
@@ -27,14 +27,14 @@ function App() {
 		axios
 			.get('http://localhost:3001/auth/verify', {
 				headers: {
-					accessToken: localStorage.getItem('accessToken'),
+					accessToken: localStorage.getItem('accessToken'), // On a besoin du token dans le headers pour accéder à la requête
 				},
 			})
 			.then((response) => {
-				if (response.data.error) { // Si user pas authentifié ou avec un token non valide
-					setAuthState({ ...authState, status: false })
+				if (response.data.error) { // Si user n'est pas authentifié ou avec un token non valide
+					setAuthState({ ...authState, status: false }) // on met le status de connexion à false
 				}
-				else { // Sinon user valide, il est authentifié avec username, id et status true
+				else { // Sinon user valide, il est authentifié avec les bons username, id, status et isAdmin
 					setAuthState({
 						username: response.data.username,
 						id: response.data.id,
@@ -49,7 +49,8 @@ function App() {
 	// Fonction se déconnecter
 	const logout = () => {
 		localStorage.removeItem('accessToken') // Supprime accessToken du localStorage
-		setAuthState({ username: '', id: 0, status: false, isAdmin: false }) // Met à jour le status d'authState à false
+		// Met à jour le status authState à false
+		setAuthState({ username: '', id: 0, status: false, isAdmin: false }) 
 		window.location.reload() // Recharge la page
 	}
 
@@ -99,11 +100,11 @@ function App() {
 					<Switch>
 						<Route path="/" exact component={Home} />
 						<Route path="/createpost" exact component={CreatePost} />
-						{/* Affiche les posts individuellement au clic */}
+						{/* Affiche les posts individuellement */}
 						<Route path="/post/:id" exact component={Post} />
 						<Route path="/registration" exact component={Registration} />
 						<Route path="/login" exact component={Login} />
-						{/* Affiche le profil avec les posts de l'user */}
+						{/* Affiche le profil avec les posts de l'utilisateur */}
 						<Route path="/profile/:id" exact component={Profile} />
 						<Route path="/changepassword" exact component={ChangePassword} />
 						{/* Pour toutes les autres routes, error 404 */}

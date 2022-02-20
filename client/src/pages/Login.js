@@ -11,15 +11,15 @@ function Login() {
 		password: '',
 	}
 
-
+	// Crée deux state avec username et password
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
-	const { setAuthState } = useContext(AuthContext) // Récupère le setState depuis App.js avec useContext
+	const { setAuthState } = useContext(AuthContext) // Récupère le setAuthState depuis App.js avec useContext
 
 	let history = useHistory()
 
 	const login = () => {
-		const data = { username: username, password: password }
+		const data = { username: username, password: password } // Contient les données du formulaire
 		axios.post('http://localhost:3001/auth/login', data).then((response) => {
 			// Affiche une alerte si il y a une erreur
 			if (response.data.error) {
@@ -27,7 +27,7 @@ function Login() {
 			} else {
 				// Récupère les infos depuis routes/Users quand on se login
 				localStorage.setItem('accessToken', response.data.token) // Crée le token dans le localStorage
-				// authState met à jour ton username, id et status
+				// authState met à jour ton username, id, status et isAdmin
 				setAuthState({
 					username: response.data.username,
 					id: response.data.id,
