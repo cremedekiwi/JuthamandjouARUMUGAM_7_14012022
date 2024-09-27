@@ -1,4 +1,4 @@
-# P7 - Groupomania #
+# Groupomania #
 
 ## Contexte du projet ##
 
